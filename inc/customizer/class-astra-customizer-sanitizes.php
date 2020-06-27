@@ -4,7 +4,7 @@
  *
  * @package     Astra
  * @author      Astra
- * @copyright   Copyright (c) 2019, Astra
+ * @copyright   Copyright (c) 2020, Astra
  * @link        https://wpastra.com/
  * @since       Astra 1.0.0
  */
@@ -81,13 +81,13 @@ if ( ! class_exists( 'Astra_Customizer_Sanitizes' ) ) {
 					$val = $input_attrs['min'];
 				}
 
-						$dv = $val / $input_attrs['step'];
+				$dv = (float) $val / $input_attrs['step'];
 
-						$dv = round( $dv );
+				$dv = round( $dv );
 
-						$val = $dv * $input_attrs['step'];
+				$val = $dv * $input_attrs['step'];
 
-					$val = number_format( (float) $val, 2, '.', '' );
+				$val = number_format( (float) $val, 2, '.', '' );
 				if ( $val == (int) $val ) {
 					$val = (int) $val;
 				}
@@ -120,6 +120,24 @@ if ( ! class_exists( 'Astra_Customizer_Sanitizes' ) ) {
 			}
 
 			return $val;
+		}
+
+		/**
+		 * Sanitize link
+		 *
+		 * @param  array $val Customizer setting link.
+		 * @return array        Return array.
+		 * @since  2.3.0
+		 */
+		public static function sanitize_link( $val ) {
+
+			$link = array();
+
+			$link['url']      = esc_url_raw( $val['url'] );
+			$link['new_tab']  = esc_attr( $val['new_tab'] );
+			$link['link_rel'] = esc_attr( $val['link_rel'] );
+
+			return $link;
 		}
 
 		/**
@@ -253,12 +271,12 @@ if ( ! class_exists( 'Astra_Customizer_Sanitizes' ) ) {
 				'mobile-unit'  => '',
 			);
 			if ( is_array( $val ) ) {
-				$responsive['desktop']      = is_numeric( $val['desktop'] ) ? $val['desktop'] : '';
-				$responsive['tablet']       = is_numeric( $val['tablet'] ) ? $val['tablet'] : '';
-				$responsive['mobile']       = is_numeric( $val['mobile'] ) ? $val['mobile'] : '';
-				$responsive['desktop-unit'] = in_array( $val['desktop-unit'], array( '', 'px', 'em', 'rem', '%' ) ) ? $val['desktop-unit'] : 'px';
-				$responsive['tablet-unit']  = in_array( $val['tablet-unit'], array( '', 'px', 'em', 'rem', '%' ) ) ? $val['tablet-unit'] : 'px';
-				$responsive['mobile-unit']  = in_array( $val['mobile-unit'], array( '', 'px', 'em', 'rem', '%' ) ) ? $val['mobile-unit'] : 'px';
+				$responsive['desktop']      = ( isset( $val['desktop'] ) && is_numeric( $val['desktop'] ) ) ? $val['desktop'] : '';
+				$responsive['tablet']       = ( isset( $val['tablet'] ) && is_numeric( $val['tablet'] ) ) ? $val['tablet'] : '';
+				$responsive['mobile']       = ( isset( $val['mobile'] ) && is_numeric( $val['mobile'] ) ) ? $val['mobile'] : '';
+				$responsive['desktop-unit'] = ( isset( $val['desktop-unit'] ) && in_array( $val['desktop-unit'], array( '', 'px', 'em', 'rem', '%' ) ) ) ? $val['desktop-unit'] : 'px';
+				$responsive['tablet-unit']  = ( isset( $val['tablet-unit'] ) && in_array( $val['tablet-unit'], array( '', 'px', 'em', 'rem', '%' ) ) ) ? $val['tablet-unit'] : 'px';
+				$responsive['mobile-unit']  = ( isset( $val['mobile-unit'] ) && in_array( $val['mobile-unit'], array( '', 'px', 'em', 'rem', '%' ) ) ) ? $val['mobile-unit'] : 'px';
 			} else {
 				$responsive['desktop'] = is_numeric( $val ) ? $val : '';
 			}
@@ -574,8 +592,60 @@ if ( ! class_exists( 'Astra_Customizer_Sanitizes' ) ) {
 		public static function sanitize_customizer_links( $val ) {
 			$val['linked']    = sanitize_text_field( $val['linked'] );
 			$val['link_text'] = esc_html( $val['link_text'] );
+			$val['link_type'] = esc_html( $val['link_type'] );
 
 			return $val;
+		}
+
+		/**
+		 * Sanitize Responsive Background Image
+		 *
+		 * @param  array $bg_obj Background object.
+		 * @return array         Background object.
+		 */
+		public static function sanitize_responsive_background( $bg_obj ) {
+
+			// Default Responsive Background Image.
+			$defaults = array(
+				'desktop' => array(
+					'background-color'      => '',
+					'background-image'      => '',
+					'background-repeat'     => 'repeat',
+					'background-position'   => 'center center',
+					'background-size'       => 'auto',
+					'background-attachment' => 'scroll',
+				),
+				'tablet'  => array(
+					'background-color'      => '',
+					'background-image'      => '',
+					'background-repeat'     => 'repeat',
+					'background-position'   => 'center center',
+					'background-size'       => 'auto',
+					'background-attachment' => 'scroll',
+				),
+				'mobile'  => array(
+					'background-color'      => '',
+					'background-image'      => '',
+					'background-repeat'     => 'repeat',
+					'background-position'   => 'center center',
+					'background-size'       => 'auto',
+					'background-attachment' => 'scroll',
+				),
+			);
+
+			// Merge responsive background object and default object into $out_bg_obj array.
+			$out_bg_obj = wp_parse_args( $bg_obj, $defaults );
+
+			foreach ( $out_bg_obj as $device => $bg ) {
+				foreach ( $bg as $key => $value ) {
+					if ( 'background-image' === $key ) {
+						$out_bg_obj[ $device ] [ $key ] = esc_url_raw( $value );
+					} else {
+						$out_bg_obj[ $device ] [ $key ] = esc_attr( $value );
+					}
+				}
+			}
+			return $out_bg_obj;
 		}
 	}
 }

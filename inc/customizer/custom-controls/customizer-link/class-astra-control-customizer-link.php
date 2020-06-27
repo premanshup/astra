@@ -4,7 +4,7 @@
  *
  * @package     Astra
  * @author      Astra
- * @copyright   Copyright (c) 2019, Astra
+ * @copyright   Copyright (c) 2020, Astra
  * @link        https://wpastra.com/
  * @since       1.0.0
  */
@@ -42,17 +42,11 @@ class Astra_Control_Customizer_Link extends WP_Customize_Control {
 	public $linked = '';
 
 	/**
-	 * Enqueue control related scripts/styles.
+	 * Linked customizer section.
 	 *
-	 * @access public
+	 * @var string
 	 */
-	public function enqueue() {
-		$css_uri = ASTRA_THEME_URI . 'inc/customizer/custom-controls/customizer-link/';
-		$js_uri  = ASTRA_THEME_URI . 'inc/customizer/custom-controls/customizer-link/';
-
-		wp_enqueue_style( 'astra-customizer-link-css', $css_uri . 'customizer-link.css', null, ASTRA_THEME_VERSION );
-		wp_enqueue_script( 'astra-customizer-link-css', $js_uri . 'customizer-link.js', array( 'jquery', 'customize-base' ), ASTRA_THEME_VERSION, true );
-	}
+	public $link_type = '';
 
 	/**
 	 * Refresh the parameters passed to the JavaScript via JSON.
@@ -63,6 +57,7 @@ class Astra_Control_Customizer_Link extends WP_Customize_Control {
 		parent::to_json();
 		$this->json['link_text'] = $this->link_text;
 		$this->json['linked']    = $this->linked;
+		$this->json['link_type'] = $this->link_type;
 	}
 
 	/**
@@ -79,7 +74,7 @@ class Astra_Control_Customizer_Link extends WP_Customize_Control {
 		?>
 
 		<# if ( data.linked && data.link_text ) { #>
-			<a href="#" class="customizer-link" data-customizer-linked="{{{ data.linked }}}">
+			<a href="#" class="customizer-link" data-customizer-linked="{{{ data.linked }}}" data-ast-customizer-link-type="{{{ data.link_type }}}">
 				{{{ data.link_text }}}
 			</a>
 		<# } #>

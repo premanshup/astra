@@ -4,7 +4,7 @@
  *
  * @package     Astra
  * @author      Astra
- * @copyright   Copyright (c) 2019, Astra
+ * @copyright   Copyright (c) 2020, Astra
  * @link        https://wpastra.com/
  * @since       Astra 1.0.0
  */
@@ -25,7 +25,7 @@ final class Astra_Fonts {
 	 * @since 1.0.0
 	 * @var array $fonts
 	 */
-	static private $fonts = array();
+	private static $fonts = array();
 
 	/**
 	 * Adds data to the $fonts array for a font to be rendered.
@@ -35,7 +35,7 @@ final class Astra_Fonts {
 	 * @param array  $variants An array of weight variants.
 	 * @return void
 	 */
-	static public function add_font( $name, $variants = array() ) {
+	public static function add_font( $name, $variants = array() ) {
 
 		if ( 'inherit' == $name ) {
 			return;
@@ -75,7 +75,7 @@ final class Astra_Fonts {
 	/**
 	 * Get Fonts
 	 */
-	static public function get_fonts() {
+	public static function get_fonts() {
 
 		do_action( 'astra_get_fonts' );
 		return apply_filters( 'astra_add_fonts', self::$fonts );
@@ -88,7 +88,7 @@ final class Astra_Fonts {
 	 * @since 1.0.0
 	 * @return void
 	 */
-	static public function render_fonts() {
+	public static function render_fonts() {
 
 		$font_list = apply_filters( 'astra_render_fonts', self::get_fonts() );
 
@@ -125,14 +125,17 @@ final class Astra_Fonts {
 	 *
 	 * @return string
 	 */
-	static public function google_fonts_url( $fonts, $subsets = array() ) {
+	public static function google_fonts_url( $fonts, $subsets = array() ) {
 
 		/* URL */
 		$base_url  = '//fonts.googleapis.com/css';
 		$font_args = array();
 		$family    = array();
 
+		// This is deprecated filter hook.
 		$fonts = apply_filters( 'astra_google_fonts', $fonts );
+
+		$fonts = apply_filters( 'astra_google_fonts_selected', $fonts );
 
 		/* Format Each Font Family in Array */
 		foreach ( $fonts as $font_name => $font_weight ) {
@@ -143,7 +146,7 @@ final class Astra_Fonts {
 				}
 				$font_family = explode( ',', $font_name );
 				$font_family = str_replace( "'", '', astra_get_prop( $font_family, 0 ) );
-				$family[]    = trim( $font_family . ':' . urlencode( trim( $font_weight ) ) );
+				$family[]    = trim( $font_family . ':' . rawurlencode( trim( $font_weight ) ) );
 			} else {
 				$family[] = trim( $font_name );
 			}
@@ -166,8 +169,11 @@ final class Astra_Fonts {
 					$subsets = implode( ',', $subsets );
 				}
 
-				$font_args['subset'] = urlencode( trim( $subsets ) );
+				$font_args['subset'] = rawurlencode( trim( $subsets ) );
 			}
+
+			$font_args['display'] = astra_get_fonts_display_property();
+
 			return add_query_arg( $font_args, $base_url );
 		}
 

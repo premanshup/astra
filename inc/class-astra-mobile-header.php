@@ -6,6 +6,10 @@
  * @since 1.4.0
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 if ( ! class_exists( 'Astra_Mobile_Header' ) ) :
 
 	/**
@@ -67,9 +71,10 @@ if ( ! class_exists( 'Astra_Mobile_Header' ) ) :
 		public function toggle_button( $item_output, $item, $depth, $args ) {
 			// Add toggle button if menu is from Astra.
 			if ( true === is_object( $args ) ) {
-				if ( 'primary' === $args->theme_location ||
+				if ( isset( $args->theme_location ) &&
+				( 'primary' === $args->theme_location ||
 				'above_header_menu' === $args->theme_location ||
-				'below_header_menu' === $args->theme_location
+				'below_header_menu' === $args->theme_location )
 				) {
 					if ( isset( $item->classes ) && in_array( 'menu-item-has-children', $item->classes ) ) {
 						$item_output = $this->menu_arrow_button_markup( $item_output, $item );
@@ -93,12 +98,11 @@ if ( ! class_exists( 'Astra_Mobile_Header' ) ) :
 		 * @since 1.7.2
 		 * @return string Menu item arrow button markup.
 		 */
-		function menu_arrow_button_markup( $item_output, $item ) {
+		public function menu_arrow_button_markup( $item_output, $item ) {
 			$item_output  = apply_filters( 'astra_toggle_button_markup', $item_output, $item );
 			$item_output .= '<button ' . astra_attr(
 				'ast-menu-toggle',
 				array(
-					'role'          => 'button',
 					'aria-expanded' => 'false',
 				),
 				$item
@@ -115,7 +119,7 @@ if ( ! class_exists( 'Astra_Mobile_Header' ) ) :
 		 * @since 1.4.0
 		 * @return array;
 		 */
-		function menu_toggle_classes( $classes ) {
+		public function menu_toggle_classes( $classes ) {
 			return ' ast-mobile-menu-buttons-' . astra_get_option( 'mobile-header-toggle-btn-style' ) . ' ';
 		}
 
@@ -124,15 +128,17 @@ if ( ! class_exists( 'Astra_Mobile_Header' ) ) :
 		 *
 		 * @return void
 		 */
-		function mobile_header_markup() {
+		public function mobile_header_markup() {
 			$mobile_header_logo = astra_get_option( 'mobile-header-logo' );
 			$different_logo     = astra_get_option( 'different-mobile-logo' );
 
 			if ( '' !== $mobile_header_logo && '1' == $different_logo ) {
 				add_filter( 'astra_has_custom_logo', '__return_true' );
 				add_filter( 'get_custom_logo', array( $this, 'astra_mobile_header_custom_logo' ), 10, 2 );
+				add_filter( 'astra_is_logo_attachment', array( $this, 'add_mobile_logo_svg_class' ), 10, 2 );
 			}
 		}
+
 		/**
 		 * Replace logo with Mobile Header logo.
 		 *
@@ -141,7 +147,7 @@ if ( ! class_exists( 'Astra_Mobile_Header' ) ) :
 		 * @since 1.4.0
 		 * @return string html markup of logo.
 		 */
-		function astra_mobile_header_custom_logo( $html, $blog_id ) {
+		public function astra_mobile_header_custom_logo( $html, $blog_id ) {
 
 			$mobile_header_logo = astra_get_option( 'mobile-header-logo' );
 
@@ -171,12 +177,32 @@ if ( ! class_exists( 'Astra_Mobile_Header' ) ) :
 		}
 
 		/**
+		 * Add svg class to mobile logo.
+		 *
+		 * @param bool  $is_logo_attachment is attachment is logo image?.
+		 * @param array $attachment attachment data.
+		 * @since 2.1.0
+		 * @return bool return if attachment is mobile logo image.
+		 */
+		public function add_mobile_logo_svg_class( $is_logo_attachment, $attachment ) {
+
+			$mobile_header_logo = astra_get_option( 'mobile-header-logo' );
+			$custom_logo_id     = attachment_url_to_postid( $mobile_header_logo );
+
+			if ( $custom_logo_id === $attachment->ID ) {
+				return true;
+			}
+
+			return $is_logo_attachment;
+		}
+
+		/**
 		 * Add Body Classes
 		 *
 		 * @param array $classes Body Class Array.
 		 * @return array
 		 */
-		function add_body_class( $classes ) {
+		public function add_body_class( $classes ) {
 
 			/**
 			 * Add class for header width

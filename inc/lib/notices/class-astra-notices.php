@@ -15,6 +15,10 @@
  * @since 1.4.0
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 if ( ! class_exists( 'Astra_Notices' ) ) :
 
 	/**
@@ -31,7 +35,7 @@ if ( ! class_exists( 'Astra_Notices' ) ) :
 		 * @var array Notices.
 		 * @since 1.4.0
 		 */
-		private static $version = '1.1.2';
+		private static $version = '1.1.5';
 
 		/**
 		 * Notices
@@ -59,7 +63,7 @@ if ( ! class_exists( 'Astra_Notices' ) ) :
 		 */
 		public static function get_instance() {
 			if ( ! isset( self::$instance ) ) {
-				self::$instance = new self;
+				self::$instance = new self();
 			}
 			return self::$instance;
 		}
@@ -108,8 +112,18 @@ if ( ! class_exists( 'Astra_Notices' ) ) :
 		 * @return void
 		 */
 		public function dismiss_notice() {
+
+			if ( ! apply_filters( 'astra_notices_user_cap_check', current_user_can( 'manage_options' ) ) ) {
+				return;
+			}
+
 			$notice_id           = ( isset( $_POST['notice_id'] ) ) ? sanitize_key( $_POST['notice_id'] ) : '';
 			$repeat_notice_after = ( isset( $_POST['repeat_notice_after'] ) ) ? absint( $_POST['repeat_notice_after'] ) : '';
+			$nonce               = ( isset( $_POST['nonce'] ) ) ? sanitize_key( $_POST['nonce'] ) : '';
+
+			if ( false === wp_verify_nonce( $nonce, 'astra-notices' ) ) {
+				wp_send_json_error( esc_html_e( 'WordPress Nonce not validated.', 'astra' ) );
+			}
 
 			// Valid inputs?
 			if ( ! empty( $notice_id ) ) {
@@ -134,6 +148,13 @@ if ( ! class_exists( 'Astra_Notices' ) ) :
 		 */
 		public function enqueue_scripts() {
 			wp_register_script( 'astra-notices', self::_get_uri() . 'notices.js', array( 'jquery' ), self::$version, true );
+			wp_localize_script(
+				'astra-notices',
+				'astraNotices',
+				array(
+					'_notice_nonce' => wp_create_nonce( 'astra-notices' ),
+				)
+			);
 		}
 
 		/**
@@ -173,6 +194,7 @@ if ( ! class_exists( 'Astra_Notices' ) ) :
 				'class'                      => '',      // Optional, Additional notice wrapper class.
 				'priority'                   => 10,      // Priority of the notice.
 				'display-with-other-notices' => true,    // Should the notice be displayed if other notices  are being displayed from Astra_Notices.
+				'is_dismissible'             => true,
 			);
 
 			// Count for the notices that are rendered.
@@ -218,6 +240,8 @@ if ( ! class_exists( 'Astra_Notices' ) ) :
 
 			wp_enqueue_script( 'astra-notices' );
 
+			do_action( 'astra_notice_before_markup' );
+
 			do_action( "astra_notice_before_markup_{$notice['id']}" );
 
 			?>
@@ -231,6 +255,8 @@ if ( ! class_exists( 'Astra_Notices' ) ) :
 
 			do_action( "astra_notice_after_markup_{$notice['id']}" );
 
+			do_action( 'astra_notice_after_markup' );
+
 		}
 
 		/**
@@ -242,7 +268,12 @@ if ( ! class_exists( 'Astra_Notices' ) ) :
 		 * @return array       Notice wrapper classes.
 		 */
 		private static function get_wrap_classes( $notice ) {
-			$classes   = array( 'astra-notice', 'notice', 'is-dismissible' );
+			$classes = array( 'astra-notice', 'notice' );
+
+			if ( $notice['is_dismissible'] ) {
+				$classes[] = 'is-dismissible';
+			}
+
 			$classes[] = $notice['class'];
 			if ( isset( $notice['type'] ) && '' !== $notice['type'] ) {
 				$classes[] = 'notice-' . $notice['type'];
@@ -308,7 +339,7 @@ if ( ! class_exists( 'Astra_Notices' ) ) :
 		 *
 		 * @return mixed URL.
 		 */
-		public static function _get_uri() {
+		public static function _get_uri() { // phpcs:ignore PSR2.Methods.MethodDeclaration.Underscore
 			$path       = wp_normalize_path( dirname( __FILE__ ) );
 			$theme_dir  = wp_normalize_path( get_template_directory() );
 			$plugin_dir = wp_normalize_path( WP_PLUGIN_DIR );
@@ -321,7 +352,7 @@ if ( ! class_exists( 'Astra_Notices' ) ) :
 				return plugin_dir_url( __FILE__ );
 			}
 
-			return;
+			return; // phpcs:ignore Squiz.PHP.NonExecutableCode.ReturnNotRequired
 		}
 
 	}

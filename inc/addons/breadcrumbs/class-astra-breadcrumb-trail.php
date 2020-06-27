@@ -22,6 +22,10 @@
  * @license   http://www.gnu.org/licenses/old-licenses/gpl-2.0.html
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
+
 /**
  * Astra Get Breadcrumb
  *
@@ -63,15 +67,27 @@ function astra_get_breadcrumb( $echo = true ) {
 function astra_get_selected_breadcrumb( $echo = true ) {
 
 	$breadcrumb_source = astra_get_option( 'select-breadcrumb-source' );
-	$wpseo_option      = get_option( 'wpseo_internallinks' );
 
-	if ( function_exists( 'yoast_breadcrumb' ) && $wpseo_option && true === $wpseo_option['breadcrumbs-enable'] && $breadcrumb_source && 'yoast-seo-breadcrumbs' == $breadcrumb_source ) {
+	$breadcrumb_enable = is_callable( 'WPSEO_Options::get' ) ? WPSEO_Options::get( 'breadcrumbs-enable' ) : false;
+	$wpseo_option      = get_option( 'wpseo_internallinks' ) ? get_option( 'wpseo_internallinks' ) : $breadcrumb_enable;
+	if ( ! is_array( $wpseo_option ) ) {
+		unset( $wpseo_option );
+		$wpseo_option = array(
+			'breadcrumbs-enable' => $breadcrumb_enable 
+		);
+	}
+
+	if ( function_exists( 'yoast_breadcrumb' ) && true === $wpseo_option['breadcrumbs-enable'] && $breadcrumb_source && 'yoast-seo-breadcrumbs' == $breadcrumb_source ) {
 		// Check if breadcrumb is turned on from WPSEO option.
 		return yoast_breadcrumb( '<div id="ast-breadcrumbs-yoast" >', '</div>', $echo );
 	} elseif ( function_exists( 'bcn_display' ) && $breadcrumb_source && 'breadcrumb-navxt' == $breadcrumb_source ) {
 
 		if( true === $echo ) {
-			echo '<div class="breadcrumbs" typeof="BreadcrumbList" vocab="https://schema.org/">' . bcn_display( ! $echo ) . '</div>';
+			?> 
+				<div class="breadcrumbs" typeof="BreadcrumbList" vocab="https://schema.org/">
+					<?php bcn_display() ?> 
+				</div> 
+			<?php
 			return;
 		}
 		// Check if breadcrumb is turned on from Breadcrumb NavXT plugin.
@@ -230,7 +246,8 @@ class Astra_Breadcrumb_Trail {
 			'show_browse'     => true,
 			'labels'          => array(),
 			'post_taxonomy'   => array(),
-			'echo'            => true
+			'echo'            => true,
+			'schema'          => true,
 		);
 
 		// Parse the arguments with the deaults.
@@ -259,6 +276,11 @@ class Astra_Breadcrumb_Trail {
 		$breadcrumb    = '';
 		$item_count    = count( $this->items );
 		$item_position = 0;
+		$meta          = '';
+
+		if ( 2 > $item_count ) {
+			$this->args['schema'] = false;
+		}
 
 		// Connect the breadcrumb trail if there are items in the trail.
 		if ( 0 < $item_count ) {
@@ -275,13 +297,29 @@ class Astra_Breadcrumb_Trail {
 
 			// Open the unordered list.
 			$breadcrumb .= sprintf(
-				'<%s class="trail-items" itemscope itemtype="http://schema.org/BreadcrumbList">',
-				tag_escape( $this->args['list_tag'] )
+				'<%1$s class="trail-items" %2$s>',
+				tag_escape( $this->args['list_tag'] ),
+				( $this->args['schema'] ? 'itemscope itemtype="http://schema.org/BreadcrumbList"' : '' )
 			);
-
-			// Add the number of items and item list order schema.
-			$breadcrumb .= sprintf( '<meta name="numberOfItems" content="%d" />', absint( $item_count ) );
-			$breadcrumb .= '<meta name="itemListOrder" content="Ascending" />';
+				
+			if ( $this->args['schema'] ) {
+				// Add the number of items and item list order schema.
+				$breadcrumb .= sprintf( '<meta content="%1$d" %2$s />', absint( $item_count ), astra_attr(
+					'breadcrumb-trail-items-num-meta',
+					array(
+						'name'  => 'numberOfItems',
+						'class' => '',
+					)
+				) );
+				$breadcrumb .= '<meta ' . astra_attr(
+					'breadcrumb-trail-items-list-meta',
+					array(
+						'class'   => '',
+						'name'    => 'itemListOrder',
+						'content' => 'Ascending',
+					)
+				) . '/>';
+			}
 
 			// Loop through the items and add them to the list.
 			foreach ( $this->items as $item ) {
@@ -293,27 +331,37 @@ class Astra_Breadcrumb_Trail {
 				preg_match( '/(<a.*?>)(.*?)(<\/a>)/i', $item, $matches );
 
 				// Wrap the item text with appropriate itemprop.
-				$item = ! empty( $matches ) ? sprintf( '%s<span itemprop="name">%s</span>%s', $matches[1], $matches[2], $matches[3] ) : sprintf( '<span itemprop="name">%s</span>', $item );
+				$item = ! empty( $matches ) ? sprintf( '%s<span %s>%s</span>%s', $matches[1], $this->args['schema'] ? 'itemprop="name"' : '', $matches[2], $matches[3] ) : sprintf( '<span>%s</span>', $item );
 
 				// Wrap the item with its itemprop.
-				$item = ! empty( $matches )
+				$item = ( ! empty( $matches ) && $this->args['schema'] )
 					? preg_replace( '/(<a.*?)([\'"])>/i', '$1$2 itemprop=$2item$2>', $item )
-					: sprintf( '<span itemprop="item">%s</span>', $item );
+					: sprintf( '<span>%s</span>', $item );
 
 				// Add list item classes.
-				$item_class = 'trail-item';
+				$item_class       = 'trail-item';
+				$item_schema_attr = 'itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"';
 
-				if ( 1 === $item_position && 1 < $item_count )
+				if ( 1 === $item_position && 1 < $item_count ) {
 					$item_class .= ' trail-begin';
-
-				elseif ( $item_count === $item_position )
+				} elseif ( $item_count === $item_position ) {
 					$item_class .= ' trail-end';
+					$item_schema_attr = '';
+				}
 
 				// Create list item attributes.
-				$attributes = 'itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem" class="' . $item_class . '"';
+				$attributes = $this->args['schema'] ? $item_schema_attr : '';
 
-				// Build the meta position HTML.
-				$meta = sprintf( '<meta itemprop="position" content="%s" />', absint( $item_position ) );
+				$attributes .= ' class="' . $item_class . '"';
+				
+				if ( $this->args['schema'] ) {
+					// Build the meta position HTML.
+					$meta = sprintf( '<meta itemprop="position" content="%s" />', absint( $item_position ) );
+				}
+				
+				if ( $item_count === $item_position ) {
+					$meta = '';
+				}
 
 				// Build the list item.
 				$breadcrumb .= sprintf( '<%1$s %2$s>%3$s%4$s</%1$s>', tag_escape( $this->args['item_tag'] ),$attributes, $item, $meta );
@@ -324,7 +372,7 @@ class Astra_Breadcrumb_Trail {
 
 			// Wrap the breadcrumb trail.
 			$breadcrumb = sprintf(
-				'<%1$s role="navigation" aria-label="%2$s" class="breadcrumb-trail breadcrumbs" itemprop="breadcrumb">%3$s%4$s%5$s</%1$s>',
+				'<%1$s role="navigation" aria-label="%2$s" class="breadcrumb-trail breadcrumbs" >%3$s%4$s%5$s</%1$s>',
 				tag_escape( $this->args['container'] ),
 				esc_attr( $this->labels['aria_label'] ),
 				$this->args['before'],

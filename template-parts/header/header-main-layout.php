@@ -9,7 +9,7 @@
  *
  * @package     Astra
  * @author      Astra
- * @copyright   Copyright (c) 2019, Astra
+ * @copyright   Copyright (c) 2020, Astra
  * @link        https://wpastra.com/
  * @since       Astra 1.0.0
  */
@@ -17,7 +17,7 @@
 ?>
 
 <div class="main-header-bar-wrap">
-	<div class="main-header-bar">
+	<div <?php echo astra_attr( 'main-header-bar' ); ?>>
 		<?php astra_main_header_bar_top(); ?>
 		<div class="ast-container">
 

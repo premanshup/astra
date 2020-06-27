@@ -4,10 +4,14 @@
  *
  * @package     Astra
  * @author      Astra
- * @copyright   Copyright (c) 2019, Astra
+ * @copyright   Copyright (c) 2020, Astra
  * @link        https://wpastra.com/
  * @since       Astra 1.0.0
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit; // Exit if accessed directly.
+}
 
 add_action( 'astra_masthead_toggle_buttons', 'astra_masthead_toggle_buttons_primary' );
 add_action( 'astra_masthead', 'astra_masthead_primary_template' );
@@ -58,7 +62,7 @@ if ( ! function_exists( 'astra_masthead_get_menu_items' ) ) :
 				<?php
 				foreach ( $sections as $key => $value ) {
 					if ( ! empty( $value ) ) {
-						echo $value;
+						echo $value; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 					}
 				}
 				?>
@@ -175,7 +179,7 @@ if ( ! function_exists( 'astra_masthead_toggle_buttons_primary' ) ) {
 			$menu_label_class = apply_filters( 'astra_main_menu_toggle_classes', $menu_label_class );
 			?>
 		<div class="ast-button-wrap">
-			<button type="button" class="menu-toggle main-header-menu-toggle <?php echo esc_attr( $menu_label_class ); ?>" <?php echo apply_filters( 'astra_nav_toggle_data_attrs', '' ); ?> aria-controls='primary-menu' aria-expanded='false'>
+			<button type="button" class="menu-toggle main-header-menu-toggle <?php echo esc_attr( $menu_label_class ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>" <?php echo apply_filters( 'astra_nav_toggle_data_attrs', '' ); ?> aria-controls='primary-menu' aria-expanded='false'>
 				<span class="screen-reader-text"><?php echo esc_html( $screen_reader_title ); ?></span>
 				<span class="<?php echo esc_attr( $menu_icon ); ?>"></span>
 				<?php if ( '' != $menu_title ) { ?>
@@ -278,7 +282,7 @@ if ( ! function_exists( 'astra_entry_content_blog_template' ) ) {
 	 * @since 1.0.0
 	 */
 	function astra_entry_content_blog_template() {
-		get_template_part( 'template-parts/blog/blog-layout' );
+		get_template_part( 'template-parts/blog/blog-layout', apply_filters( 'astra_blog_template_name', '' ) );
 	}
 }
 
@@ -354,7 +358,7 @@ if ( ! function_exists( 'astra_header_custom_item_outside_menu' ) ) {
 		if ( astra_get_option( 'header-display-outside-menu' ) ) {
 			$markup = astra_masthead_get_menu_items( true );
 
-			echo $markup;
+			echo $markup; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		}
 	}
 }

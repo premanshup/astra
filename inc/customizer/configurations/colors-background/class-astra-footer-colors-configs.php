@@ -4,7 +4,7 @@
  *
  * @package     Astra
  * @author      Astra
- * @copyright   Copyright (c) 2019, Astra
+ * @copyright   Copyright (c) 2020, Astra
  * @link        https://wpastra.com/
  * @since       1.4.3
  */
@@ -35,66 +35,61 @@ if ( ! class_exists( 'Astra_Footer_Colors_Configs' ) ) {
 				 * Option: Color
 				 */
 				array(
-					'name'     => ASTRA_THEME_SETTINGS . '[footer-color]',
-					'type'     => 'control',
+					'name'     => 'footer-color',
+					'type'     => 'sub-control',
+					'tab'      => __( 'Normal', 'astra' ),
+					'priority' => 5,
+					'parent'   => ASTRA_THEME_SETTINGS . '[footer-bar-content-group]',
+					'section'  => 'section-footer-small',
 					'control'  => 'ast-color',
 					'title'    => __( 'Text Color', 'astra' ),
-					'required' => array( ASTRA_THEME_SETTINGS . '[footer-sml-layout]', '!=', 'disabled' ),
 					'default'  => '',
-					'section'  => 'section-colors-footer',
 				),
 
 				/**
 				 * Option: Link Color
 				 */
 				array(
-					'name'     => ASTRA_THEME_SETTINGS . '[footer-link-color]',
-					'type'     => 'control',
+					'name'     => 'footer-link-color',
+					'type'     => 'sub-control',
+					'tab'      => __( 'Normal', 'astra' ),
+					'priority' => 6,
+					'parent'   => ASTRA_THEME_SETTINGS . '[footer-bar-content-group]',
+					'section'  => 'section-footer-small',
 					'control'  => 'ast-color',
-					'required' => array( ASTRA_THEME_SETTINGS . '[footer-sml-layout]', '!=', 'disabled' ),
 					'default'  => '',
 					'title'    => __( 'Link Color', 'astra' ),
-					'section'  => 'section-colors-footer',
 				),
 
 				/**
 				 * Option: Link Hover Color
 				 */
 				array(
-					'name'     => ASTRA_THEME_SETTINGS . '[footer-link-h-color]',
-					'type'     => 'control',
+					'name'     => 'footer-link-h-color',
+					'type'     => 'sub-control',
+					'tab'      => __( 'Hover', 'astra' ),
+					'priority' => 5,
+					'parent'   => ASTRA_THEME_SETTINGS . '[footer-bar-content-group]',
+					'section'  => 'section-footer-small',
 					'control'  => 'ast-color',
-					'required' => array( ASTRA_THEME_SETTINGS . '[footer-sml-layout]', '!=', 'disabled' ),
-					'title'    => __( 'Link Hover Color', 'astra' ),
+					'title'    => __( 'Link Color', 'astra' ),
 					'default'  => '',
-					'section'  => 'section-colors-footer',
-				),
-
-				/**
-				 * Option: Divider
-				 */
-				array(
-					'name'     => ASTRA_THEME_SETTINGS . '[divider-footer-image]',
-					'type'     => 'control',
-					'control'  => 'ast-divider',
-					'required' => array( ASTRA_THEME_SETTINGS . '[footer-sml-layout]', '!=', 'disabled' ),
-					'section'  => 'section-colors-footer',
-					'settings' => array(),
 				),
 
 				/**
 				 * Option: Footer Background
 				 */
 				array(
-					'name'     => ASTRA_THEME_SETTINGS . '[footer-bg-obj]',
-					'type'     => 'control',
-					'control'  => 'ast-background',
-					'required' => array( ASTRA_THEME_SETTINGS . '[footer-sml-layout]', '!=', 'disabled' ),
-					'default'  => astra_get_option( 'footer-bg-obj' ),
-					'section'  => 'section-colors-footer',
-					'title'    => __( 'Background', 'astra' ),
+					'name'      => 'footer-bg-obj-responsive',
+					'type'      => 'sub-control',
+					'priority'  => 7,
+					'parent'    => ASTRA_THEME_SETTINGS . '[footer-bar-background-group]',
+					'section'   => 'section-footer-small',
+					'transport' => 'postMessage',
+					'control'   => 'ast-responsive-background',
+					'default'   => astra_get_option( 'footer-bg-obj-responsive' ),
+					'label'     => __( 'Background', 'astra' ),
 				),
-
 			);
 
 			$configurations = array_merge( $configurations, $_configs );
@@ -104,6 +99,6 @@ if ( ! class_exists( 'Astra_Footer_Colors_Configs' ) ) {
 	}
 }
 
-new Astra_Footer_Colors_Configs;
+new Astra_Footer_Colors_Configs();
 
 
