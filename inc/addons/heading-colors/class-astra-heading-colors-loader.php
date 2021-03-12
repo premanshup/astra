@@ -114,6 +114,7 @@ class Astra_Heading_Colors_Loader {
 			'mobile-unit'  => 'px',
 		);
 		$defaults['text-transform-button'] = '';
+		
 		/**
 		 * Check backward compatibility for button line height.
 		 */
@@ -135,7 +136,7 @@ class Astra_Heading_Colors_Loader {
 		/**
 		 * Register Panel & Sections
 		 */
-		require_once ASTRA_THEME_HEADING_COLORS_DIR . 'customizer/class-astra-heading-colors-configs.php';
+		require_once ASTRA_THEME_HEADING_COLORS_DIR . 'customizer/class-astra-heading-colors-configs.php';// phpcs:ignore: WPThemeReview.CoreFunctionality.FileInclude.FileIncludeFound
 	}
 
 	/**
