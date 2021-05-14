@@ -310,7 +310,15 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 			$selection_text_color = ( 'transparent' === $highlight_theme_color ) ? '' : $highlight_theme_color;
 
 			$css_output = array(
+				':root' =>array(
+					'--h1-font-size' => astra_responsive_font( $heading_h1_font_size, 'desktop' ),
+					'--h2-font-size' => astra_responsive_font( $heading_h2_font_size, 'desktop' ),
+					'--h3-font-size' => astra_responsive_font( $heading_h3_font_size, 'desktop' ),
+					'--h4-font-size' => astra_responsive_font( $heading_h4_font_size, 'desktop' ),
+					'--h5-font-size' => astra_responsive_font( $heading_h5_font_size, 'desktop' ),
+					'--h6-font-size' => astra_responsive_font( $heading_h6_font_size, 'desktop' ),
 
+				),
 				// HTML.
 				'html'                           => array(
 					'font-size' => astra_get_font_css_value( (int) $body_font_size_desktop * 6.25, '%' ),
@@ -365,8 +373,8 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 				),
 				// Conditionally select the css selectors with or without achors.
 				self::conditional_headings_css_selectors(
-					'h1, .entry-content h1, .entry-content h1 a',
-					'h1, .entry-content h1'
+					'.entry-content h1 a',
+					''
 				)                                => array(
 					'font-size'      => astra_responsive_font( $heading_h1_font_size, 'desktop' ),
 					'font-weight'    => astra_get_css_value( $h1_font_weight, 'font' ),
@@ -377,8 +385,8 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 
 				// Conditionally select the css selectors with or without achors.
 				self::conditional_headings_css_selectors(
-					'h2, .entry-content h2, .entry-content h2 a',
-					'h2, .entry-content h2'
+					'.entry-content h2 a',
+					''
 				)                                => array(
 					'font-size'      => astra_responsive_font( $heading_h2_font_size, 'desktop' ),
 					'font-weight'    => astra_get_css_value( $h2_font_weight, 'font' ),
@@ -389,8 +397,8 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 
 				// Conditionally select the css selectors with or without achors.
 				self::conditional_headings_css_selectors(
-					'h3, .entry-content h3, .entry-content h3 a',
-					'h3, .entry-content h3'
+					'.entry-content h3 a',
+					''
 				)                                => array(
 					'font-size'      => astra_responsive_font( $heading_h3_font_size, 'desktop' ),
 					'font-weight'    => astra_get_css_value( $h3_font_weight, 'font' ),
@@ -401,8 +409,8 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 
 				// Conditionally select the css selectors with or without achors.
 				self::conditional_headings_css_selectors(
-					'h4, .entry-content h4, .entry-content h4 a',
-					'h4, .entry-content h4'
+					'.entry-content h4 a',
+					''
 				)                                => array(
 					'font-size'   => astra_responsive_font( $heading_h4_font_size, 'desktop' ),
 					'line-height' => esc_attr( $h4_line_height ),
@@ -411,7 +419,7 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 				// Conditionally select the css selectors with or without achors.
 				self::conditional_headings_css_selectors(
 					'h5, .entry-content h5, .entry-content h5 a',
-					'h5, .entry-content h5'
+					''
 				)                                => array(
 					'font-size'   => astra_responsive_font( $heading_h5_font_size, 'desktop' ),
 					'line-height' => esc_attr( $h5_line_height ),
@@ -420,7 +428,7 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 				// Conditionally select the css selectors with or without achors.
 				self::conditional_headings_css_selectors(
 					'h6, .entry-content h6, .entry-content h6 a',
-					'h6, .entry-content h6'
+					''
 				)                                => array(
 					'font-size'   => astra_responsive_font( $heading_h6_font_size, 'desktop' ),
 					'line-height' => esc_attr( $h6_line_height ),
@@ -2971,7 +2979,7 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 		 * @since 1.4.9
 		 * @return boolean true if it should include anchors, False if not.
 		 */
-		public static function anchors_in_css_selectors_heading() {
+		public static function anchors_in_css_selectors_heading() { return true;
 
 			if ( true === astra_get_option( 'include-headings-in-typography' ) &&
 				true === apply_filters(

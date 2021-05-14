@@ -440,21 +440,21 @@ h1, h2, h3, h4, h5, h6 {
 h1,
 .entry-content h1 {
   color: #808285;
-  font-size: 2em;
+  font-size: var(--h1-font-size, 2em);
   line-height: 1.2;
 }
 
 h2,
 .entry-content h2 {
   color: #808285;
-  font-size: 1.7em;
+  font-size: var(--h2-font-size, 1.7em);
   line-height: 1.3;
 }
 
 h3,
 .entry-content h3 {
   color: #808285;
-  font-size: 1.5em;
+  font-size: var(--h3-font-size, 1.5em);
   line-height: 1.4;
 }
 
@@ -462,21 +462,21 @@ h4,
 .entry-content h4 {
   color: #808285;
   line-height: 1.5;
-  font-size: 1.3em;
+  font-size: var(--h4-font-size, 1.3em);
 }
 
 h5,
 .entry-content h5 {
   color: #808285;
   line-height: 1.6;
-  font-size: 1.2em;
+  font-size: var(--h5-font-size, 1.2em);
 }
 
 h6,
 .entry-content h6 {
   color: #808285;
   line-height: 1.7;
-  font-size: 1.1em;
+  font-size: var(--h6-font-size, 1.1em);
 }
 
 /*--------------------------------------------------------------

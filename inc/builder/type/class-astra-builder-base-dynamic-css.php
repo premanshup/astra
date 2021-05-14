@@ -397,13 +397,13 @@ if ( ! class_exists( 'Astra_Builder_Base_Dynamic_CSS' ) ) {
 			$hide_desktop = ( ! astra_get_option( $section_id . '-hide-desktop' ) ) ? $default_property : 'none';
 			$hide_tablet  = ( ! astra_get_option( $section_id . '-hide-tablet' ) ) ? $mobile_tablet_default : 'none';
 			$hide_mobile  = ( ! astra_get_option( $section_id . '-hide-mobile' ) ) ? $mobile_tablet_default : 'none';
-
+			
 			$css_output_desktop = array(
 				$selector => array(
 					'display' => $hide_desktop,
 				),
 			);
-
+			error_log($hide_tablet.'<br>'. '.ast-header-break-point ' . $selector);
 			$css_output_tablet = array(
 				'.ast-header-break-point ' . $selector => array(
 					'display' => $hide_tablet,
