@@ -633,6 +633,10 @@ ins {
   text-decoration: none;
 }
 
+.astra-logo-svg {
+  height: calc( var(--maxHeight, 150px) - 215px);
+}
+
 ul, ol {
   margin: 0 3em 1.5em 0;
 }
