@@ -49,6 +49,7 @@ if ( ! class_exists( 'Astra_Enqueue_Scripts' ) ) {
 			add_action( 'enqueue_block_editor_assets', array( $this, 'gutenberg_assets' ) );
 			add_filter( 'admin_body_class', array( $this, 'admin_body_class' ) );
 			add_action( 'wp_print_footer_scripts', array( $this, 'astra_skip_link_focus_fix' ) );
+			add_filter( 'style_loader_tag', array( $this, 'astra_style_loader_tag_filter' ), 10, 2 );
 		}
 
 		/**
@@ -368,6 +369,25 @@ if ( ! class_exists( 'Astra_Enqueue_Scripts' ) ) {
 		 */
 		public static function enqueue_theme_assets() {
 			return apply_filters( 'astra_enqueue_theme_assets', true );
+		}
+
+
+		/**
+		 * Filter the asset attributes.
+		 * 
+		 * @param string $html style markup.
+		 * @param strind $handle name.
+		 * @since x.x.x
+		 */
+		public function astra_style_loader_tag_filter( $html, $handle ) {
+			if ( 'astra-google-fonts' === $handle ) {
+				return str_replace(
+					"rel='stylesheet'",
+					"rel='prefetch' as='font'",
+					$html
+				);
+			}
+			return $html;
 		}
 
 	}

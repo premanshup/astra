@@ -167,12 +167,3 @@ require_once ASTRA_THEME_DIR . 'inc/core/markup/class-astra-markup.php';
 require_once ASTRA_THEME_DIR . 'inc/core/deprecated/deprecated-filters.php';
 require_once ASTRA_THEME_DIR . 'inc/core/deprecated/deprecated-hooks.php';
 require_once ASTRA_THEME_DIR . 'inc/core/deprecated/deprecated-functions.php';
-add_filter('style_loader_tag', 'my_style_loader_tag_filter', 10, 2);
-
-function my_style_loader_tag_filter($html, $handle) {
-    if ($handle === 'astra-google-fonts') {
-        return str_replace("rel='stylesheet'",
-            "rel='prefetch' as='font'", $html);
-    }
-    return $html;
-}
