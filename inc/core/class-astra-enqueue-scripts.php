@@ -383,7 +383,7 @@ if ( ! class_exists( 'Astra_Enqueue_Scripts' ) ) {
 			if ( 'astra-google-fonts' === $handle ) {
 				return str_replace(
 					"rel='stylesheet'",
-					"rel='prefetch' as='font'",
+					"rel='preload' as='font'",
 					$html
 				);
 			}
