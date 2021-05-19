@@ -394,15 +394,17 @@ if ( ! class_exists( 'Astra_Builder_Base_Dynamic_CSS' ) ) {
 			// For Mobile/Tablet we need display grid property to display elements centerd alignment.
 			$mobile_tablet_default = ( $mobile_tablet_default ) ? $mobile_tablet_default : $default_property;
 
-			$hide_desktop       = ( ! astra_get_option( $section_id . '-hide-desktop' ) ) ? $default_property : 'none';
-			$hide_tablet        = ( ! astra_get_option( $section_id . '-hide-tablet' ) ) ? $mobile_tablet_default : 'none';
-			$hide_mobile        = ( ! astra_get_option( $section_id . '-hide-mobile' ) ) ? $mobile_tablet_default : 'none';
+			$hide_desktop = ( ! astra_get_option( $section_id . '-hide-desktop' ) ) ? $default_property : 'none';
+			$hide_tablet  = ( ! astra_get_option( $section_id . '-hide-tablet' ) ) ? $mobile_tablet_default : 'none';
+			$hide_mobile  = ( ! astra_get_option( $section_id . '-hide-mobile' ) ) ? $mobile_tablet_default : 'none';
+
 			$css_output_desktop = array(
 				$selector => array(
 					'display' => $hide_desktop,
 				),
 			);
-			$css_output_tablet  = array(
+
+			$css_output_tablet = array(
 				'.ast-header-break-point ' . $selector => array(
 					'display' => $hide_tablet,
 				),
