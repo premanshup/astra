@@ -311,12 +311,12 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 
 			$css_output = array(
 				':root'                          => array(
-					'--h1-font-size' => astra_responsive_font( $heading_h1_font_size, 'desktop' ),
-					'--h2-font-size' => astra_responsive_font( $heading_h2_font_size, 'desktop' ),
-					'--h3-font-size' => astra_responsive_font( $heading_h3_font_size, 'desktop' ),
-					'--h4-font-size' => astra_responsive_font( $heading_h4_font_size, 'desktop' ),
-					'--h5-font-size' => astra_responsive_font( $heading_h5_font_size, 'desktop' ),
-					'--h6-font-size' => astra_responsive_font( $heading_h6_font_size, 'desktop' ),
+					'--ast-h1-font-size' => astra_responsive_font( $heading_h1_font_size, 'desktop' ),
+					'--ast-h2-font-size' => astra_responsive_font( $heading_h2_font_size, 'desktop' ),
+					'--ast-h3-font-size' => astra_responsive_font( $heading_h3_font_size, 'desktop' ),
+					'--ast-h4-font-size' => astra_responsive_font( $heading_h4_font_size, 'desktop' ),
+					'--ast-h5-font-size' => astra_responsive_font( $heading_h5_font_size, 'desktop' ),
+					'--ast-h6-font-size' => astra_responsive_font( $heading_h6_font_size, 'desktop' ),
 
 				),
 				// HTML.
@@ -2056,12 +2056,12 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 			/* Tablet Typography */
 			$tablet_typography = array(
 				':root'                          => array(
-					'--h1-font-size' => astra_responsive_font( $heading_h1_font_size, 'tablet', 30 ),
-					'--h2-font-size' => astra_responsive_font( $heading_h2_font_size, 'tablet', 25 ),
-					'--h3-font-size' => astra_responsive_font( $heading_h3_font_size, 'tablet', 20 ),
-					'--h4-font-size' => astra_responsive_font( $heading_h4_font_size, 'tablet' ),
-					'--h5-font-size' => astra_responsive_font( $heading_h5_font_size, 'tablet' ),
-					'--h6-font-size' => astra_responsive_font( $heading_h6_font_size, 'tablet' ),
+					'--ast-h1-font-size' => astra_responsive_font( $heading_h1_font_size, 'tablet', 30 ),
+					'--ast-h2-font-size' => astra_responsive_font( $heading_h2_font_size, 'tablet', 25 ),
+					'--ast-h3-font-size' => astra_responsive_font( $heading_h3_font_size, 'tablet', 20 ),
+					'--ast-h4-font-size' => astra_responsive_font( $heading_h4_font_size, 'tablet' ),
+					'--ast-h5-font-size' => astra_responsive_font( $heading_h5_font_size, 'tablet' ),
+					'--ast-h6-font-size' => astra_responsive_font( $heading_h6_font_size, 'tablet' ),
 
 				),
 				'body, button, input, select, textarea, .ast-button, .ast-custom-button' => array(
@@ -2135,12 +2135,12 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 			/* Mobile Typography */
 			$mobile_typography = array(
 				':root'                          => array(
-					'--h1-font-size' => astra_responsive_font( $heading_h1_font_size, 'mobile', 30 ),
-					'--h2-font-size' => astra_responsive_font( $heading_h2_font_size, 'mobile', 25 ),
-					'--h3-font-size' => astra_responsive_font( $heading_h3_font_size, 'mobile', 20 ),
-					'--h4-font-size' => astra_responsive_font( $heading_h4_font_size, 'mobile' ),
-					'--h5-font-size' => astra_responsive_font( $heading_h5_font_size, 'mobile' ),
-					'--h6-font-size' => astra_responsive_font( $heading_h6_font_size, 'mobile' ),
+					'--ast-h1-font-size' => astra_responsive_font( $heading_h1_font_size, 'mobile', 30 ),
+					'--ast-h2-font-size' => astra_responsive_font( $heading_h2_font_size, 'mobile', 25 ),
+					'--ast-h3-font-size' => astra_responsive_font( $heading_h3_font_size, 'mobile', 20 ),
+					'--ast-h4-font-size' => astra_responsive_font( $heading_h4_font_size, 'mobile' ),
+					'--ast-h5-font-size' => astra_responsive_font( $heading_h5_font_size, 'mobile' ),
+					'--ast-h6-font-size' => astra_responsive_font( $heading_h6_font_size, 'mobile' ),
 
 				),
 				'body, button, input, select, textarea, .ast-button, .ast-custom-button' => array(
