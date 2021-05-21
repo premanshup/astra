@@ -352,7 +352,7 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 					'max-width' => astra_get_css_value( $header_logo_width['desktop'], 'px' ),
 				),
 				'.astra-logo-svg'                => array(
-					'width' => astra_get_css_value( $header_logo_width['desktop'], 'px' ),
+					'width'       => astra_get_css_value( $header_logo_width['desktop'], 'px' ),
 					'--maxHeight' => astra_get_css_value( $header_logo_width['desktop'], 'px' ),
 				),
 				'.ast-archive-description .ast-archive-title' => array(
