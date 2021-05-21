@@ -1381,10 +1381,10 @@ function isJsonString( str ) {
 		astra_css( 'astra-settings[button-bg-color]', 'background-color', '.menu-toggle, button, .ast-button, .button, input#submit, input[type="button"], input[type="submit"], input[type="reset"], .wp-block-button .wp-block-button__link, .ast-custom-button' + btn_bg_color_ele );
 
 		// Theme Button - Text Visited Color
-		astra_css( 'astra-settings[button-visited-color]', 'color', '.menu-toggle:visited, button:visited, .ast-button:visited, .button:visited, input#submit:visited, input[type="button"]:visited, input[type="submit"]:visited, input[type="reset"]:visited, .wp-block-button .wp-block-button__link:visited, .ast-custom-button:visited' + eleButtonnVisitedSelector );
+		astra_css( 'astra-settings[button-visited-color]', 'color', '.menu-toggle:visited, button:visited, .ast-button:visited, .button:visited, input#submit:visited, input[type="button"]:visited, input[type="submit"]:visited, input[type="reset"]:visited, .wp-block-button .wp-block-button__link:visited, .ast-custom-button-link:visited .ast-custom-button' + eleButtonnVisitedSelector );
 
 		// Theme Button - Background Visited Color
-		astra_css( 'astra-settings[button-bg-visited-color]', 'background-color', '.menu-toggle:visited, button:visited, .ast-button:visited, .button:visited, input#submit:visited, input[type="button"]:visited, input[type="submit"]:visited, input[type="reset"]:visited, .wp-block-button .wp-block-button__link:visited, .ast-custom-button:visited' + eleButtonnVisitedSelector );
+		astra_css( 'astra-settings[button-bg-visited-color]', 'background-color', '.menu-toggle:visited, button:visited, .ast-button:visited, .button:visited, input#submit:visited, input[type="button"]:visited, input[type="submit"]:visited, input[type="reset"]:visited, .wp-block-button .wp-block-button__link:visited, .ast-custom-button-link:visited .ast-custom-button' + eleButtonnVisitedSelector );
 
 		// Theme Button - Text Hover Color
 		astra_css( 'astra-settings[button-h-color]', 'color', 'button:focus, .menu-toggle:hover, button:hover, .ast-button:hover, .button:hover, input[type=reset]:hover, input[type=reset]:focus, input#submit:hover, input#submit:focus, input[type="button"]:hover, input[type="button"]:focus, input[type="submit"]:hover, input[type="submit"]:focus, .wp-block-button .wp-block-button__link:hover, .wp-block-button .wp-block-button__link:focus, .ast-custom-button:hover, .ast-custom-button:focus' + btn_h_color_ele );
@@ -1405,10 +1405,10 @@ function isJsonString( str ) {
 		astra_css( 'astra-settings[button-bg-color]', 'background-color', '.menu-toggle, button, .ast-button, .button, input#submit, input[type="button"], input[type="submit"], input[type="reset"], .ast-custom-button' );
 
 		// Theme Button - Text Visited Color
-		astra_css( 'astra-settings[button-visited-color]', 'color', '.menu-toggle:visited, button:visited, .ast-button:visited, .button:visited, input#submit:visited, input[type="button"]:visited, input[type="submit"]:visited, input[type="reset"]:visited, .wp-block-button .wp-block-button__link:visited, .ast-custom-button:visited' );
+		astra_css( 'astra-settings[button-visited-color]', 'color', '.menu-toggle:visited, button:visited, .ast-button:visited, .button:visited, input#submit:visited, input[type="button"]:visited, input[type="submit"]:visited, input[type="reset"]:visited, .wp-block-button .wp-block-button__link:visited, .ast-custom-button-link:visited .ast-custom-button' );
 
 		// Theme Button - Background Visited Color
-		astra_css( 'astra-settings[button-bg-visited-color]', 'background-color', '.menu-toggle:visited, button:visited, .ast-button:visited, .button:visited, input#submit:visited, input[type="button"]:visited, input[type="submit"]:visited, input[type="reset"]:visited, .wp-block-button .wp-block-button__link:visited, .ast-custom-button:visited' );
+		astra_css( 'astra-settings[button-bg-visited-color]', 'background-color', '.menu-toggle:visited, button:visited, .ast-button:visited, .button:visited, input#submit:visited, input[type="button"]:visited, input[type="submit"]:visited, input[type="reset"]:visited, .wp-block-button .wp-block-button__link:visited, .ast-custom-button-link:visited .ast-custom-button' );
 
 		// Theme Button - Border Color
 		astra_css( 'astra-settings[button-bg-color]', 'border-color', '.menu-toggle, button, .ast-button, .button, input#submit, input[type="button"], input[type="submit"], input[type="reset"], .ast-custom-button' );
