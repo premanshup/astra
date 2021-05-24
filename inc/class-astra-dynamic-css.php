@@ -1103,9 +1103,9 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 			}
 
 			$static_tablet_layout_min_css = array(
-				'.site-main .entry-content .alignwide'       => array(
-					'margin-left' => 'auto',
-					'margin-right'  => 'auto',
+				'.site-main .entry-content .alignwide' => array(
+					'margin-left'  => 'auto',
+					'margin-right' => 'auto',
 				),
 			);
 
