@@ -1102,6 +1102,16 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 				$parse_css .= astra_parse_css( $gb_patterns_min_mobile_css, astra_get_mobile_breakpoint() );
 			}
 
+			$static_tablet_layout_min_css = array(
+				'.site-main .entry-content .alignwide'       => array(
+					'margin-left' => 'auto',
+					'margin-right'  => 'auto',
+				),
+			);
+
+			/* Parse CSS from array() -> max-width: (tablet-breakpoint + 1)px CSS */
+			$parse_css .= astra_parse_css( $static_tablet_layout_min_css, '', astra_get_tablet_breakpoint( '', 1 ) );
+
 			$static_layout_css = array(
 				'.ast-separate-container .ast-article-post, .ast-separate-container .ast-article-single' => array(
 					'padding' => '1.5em 2.14em',
