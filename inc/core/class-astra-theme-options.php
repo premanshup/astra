@@ -102,7 +102,7 @@ if ( ! class_exists( 'Astra_Theme_Options' ) ) {
 			 * @since x.x.x
 			 */
 			$astra_settings = get_option( ASTRA_THEME_SETTINGS );
-			if( isset( $astra_settings['can-update-button-defaults-to-gb-support'] ) ) {
+			if ( isset( $astra_settings['can-update-button-defaults-to-gb-support'] ) ) {
 				$button_desktop_padding_defaults = array(
 					'top'    => 10,
 					'right'  => 40,

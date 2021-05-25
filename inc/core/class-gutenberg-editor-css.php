@@ -472,10 +472,10 @@ if ( ! class_exists( 'Gutenberg_Editor_CSS' ) ) :
 					$btn_text_hover_color = astra_get_foreground_color( $link_hover_color );
 				}
 
-				if( ! Astra_Dynamic_CSS::update_gutenberg_outline_button_patterns_compat() ) {
-					$border_size_if_empty    = '';
+				if ( ! Astra_Dynamic_CSS::update_gutenberg_outline_button_patterns_compat() ) {
+					$border_size_if_empty = '';
 				} else {
-					$border_size_if_empty    = '2px';
+					$border_size_if_empty = '2px';
 				}
 
 				// Outline Gutenberg button compatibility CSS.
@@ -497,8 +497,8 @@ if ( ! class_exists( 'Gutenberg_Editor_CSS' ) ) :
 					),
 				);
 
-				if( ! Astra_Dynamic_CSS::update_gutenberg_outline_button_patterns_compat() ) {
-					$button_patterns_compat_css['.wp-block-button .wp-block-button__link'] = array(
+				if ( ! Astra_Dynamic_CSS::update_gutenberg_outline_button_patterns_compat() ) {
+					$button_patterns_compat_css['.wp-block-button .wp-block-button__link']                  = array(
 						'border'  => 'none',
 						'padding' => '15px 30px',
 					);
@@ -518,7 +518,7 @@ if ( ! class_exists( 'Gutenberg_Editor_CSS' ) ) :
 
 				$css .= astra_parse_css( $button_patterns_compat_css );
 
-				if( ! Astra_Dynamic_CSS::update_gutenberg_outline_button_patterns_compat() ) {
+				if ( ! Astra_Dynamic_CSS::update_gutenberg_outline_button_patterns_compat() ) {
 					// Tablet CSS.
 					$button_patterns_tablet_compat_css = array(
 						'.wp-block-button .wp-block-button__link' => array(
@@ -572,7 +572,7 @@ if ( ! class_exists( 'Gutenberg_Editor_CSS' ) ) :
 					);
 				}
 
-				if( ! Astra_Dynamic_CSS::update_gutenberg_outline_button_patterns_compat() ) {
+				if ( ! Astra_Dynamic_CSS::update_gutenberg_outline_button_patterns_compat() ) {
 					$gb_patterns_min_mobile_css['.editor-styles-wrapper p.has-background'] = array(
 						'padding' => '20px',
 					);

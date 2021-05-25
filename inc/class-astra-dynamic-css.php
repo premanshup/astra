@@ -1024,10 +1024,10 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 				$parse_css .= astra_parse_css( $mobile_screen_media_text_block_css, '', astra_get_mobile_breakpoint() );
 			}
 
-			if( self::update_gutenberg_outline_button_patterns_compat() ) {
-				$border_size_if_empty    = '';
+			if ( self::update_gutenberg_outline_button_patterns_compat() ) {
+				$border_size_if_empty = '';
 			} else {
-				$border_size_if_empty    = '2px';
+				$border_size_if_empty = '2px';
 			}
 
 			// Outline Gutenberg button compatibility CSS.
@@ -1066,7 +1066,7 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 				/* Parse CSS from array() -> All media CSS */
 				$parse_css .= astra_parse_css( $outline_button_css );
 
-				if( ! self::update_gutenberg_outline_button_patterns_compat() ) {
+				if ( ! self::update_gutenberg_outline_button_patterns_compat() ) {
 
 					// Tablet CSS.
 					$outline_button_tablet_css = array(
@@ -1095,25 +1095,25 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 
 				if ( $is_site_rtl ) {
 					$gb_patterns_min_mobile_css = array(
-						'.entry-content > .alignleft'    => array(
+						'.entry-content > .alignleft'  => array(
 							'margin-left' => '20px',
 						),
-						'.entry-content > .alignright'   => array(
+						'.entry-content > .alignright' => array(
 							'margin-right' => '20px',
 						),
 					);
 				} else {
 					$gb_patterns_min_mobile_css = array(
-						'.entry-content > .alignleft'    => array(
+						'.entry-content > .alignleft'  => array(
 							'margin-right' => '20px',
 						),
-						'.entry-content > .alignright'   => array(
+						'.entry-content > .alignright' => array(
 							'margin-left' => '20px',
 						),
 					);
 				}
 
-				if( ! self::update_gutenberg_outline_button_patterns_compat() ) {
+				if ( ! self::update_gutenberg_outline_button_patterns_compat() ) {
 					$gb_patterns_min_mobile_css['.wp-block-group.has-background'] = array(
 						'padding' => '20px',
 					);
@@ -1584,10 +1584,10 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 					);
 				} else {
 
-					if( self::update_gutenberg_outline_button_patterns_compat() ) {
-						$border_size_if_empty    = '';
+					if ( self::update_gutenberg_outline_button_patterns_compat() ) {
+						$border_size_if_empty = '';
 					} else {
-						$border_size_if_empty    = '0';
+						$border_size_if_empty = '0';
 					}
 
 					$global_button_page_builder_desktop['.wp-block-button .wp-block-button__link'] = array(
