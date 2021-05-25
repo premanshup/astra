@@ -680,6 +680,8 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 			*/
 			if ( self::gtn_image_group_css_comp() ) {
 
+				$container_layout = astra_get_content_layout();
+
 				if ( 'content-boxed-container' == $container_layout || 'boxed-container' == $container_layout ) {
 					$parse_css .= astra_parse_css(
 						array(
@@ -717,8 +719,9 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 
 				$parse_css .= astra_parse_css( $gtn_tablet_column_css, '', '782' );
 			}
-
 			if ( self::gtn_group_cover_css_comp() ) {
+
+				$container_layout = astra_get_content_layout();
 
 				if ( 'no-sidebar' !== astra_page_layout() ) {
 
@@ -2053,7 +2056,6 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 				);
 				/* Parse CSS from array()*/
 				$parse_css .= astra_parse_css( $page_builder_comment, astra_get_mobile_breakpoint( '', 1 ) );
-
 			}
 
 			$separate_container_css = array(
