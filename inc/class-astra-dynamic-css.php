@@ -1130,8 +1130,9 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 			/* Parse CSS from array() -> max-width: (tablet-breakpoint + 1)px CSS */
 			$parse_css .= astra_parse_css( $static_tablet_layout_min_css, '', astra_get_tablet_breakpoint( '', 1 ) );
 
-			$static_layout_css = array(
-				'.ast-separate-container .ast-article-post, .ast-separate-container .ast-article-single' => array(
+			$article_post_selector = ( ! Astra_Builder_Helper::apply_flex_based_css() ) ? '.ast-separate-container .ast-article-post,' : '';
+			$static_layout_css     = array(
+				$article_post_selector . '.ast-separate-container .ast-article-single' => array(
 					'padding' => '1.5em 2.14em',
 				),
 				'.ast-separate-container #primary, .ast-separate-container #secondary' => array(
