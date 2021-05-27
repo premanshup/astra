@@ -54,10 +54,13 @@ if ( is_admin() ) {
 
 require_once ASTRA_THEME_DIR . 'inc/customizer/class-astra-fonts.php';
 
+require_once ASTRA_THEME_DIR . 'inc/dynamic-css/custom-menu-old-header.php';
 require_once ASTRA_THEME_DIR . 'inc/dynamic-css/container-layouts.php';
+require_once ASTRA_THEME_DIR . 'inc/dynamic-css/astra-icons.php';
 require_once ASTRA_THEME_DIR . 'inc/core/class-astra-walker-page.php';
 require_once ASTRA_THEME_DIR . 'inc/core/class-astra-enqueue-scripts.php';
 require_once ASTRA_THEME_DIR . 'inc/core/class-gutenberg-editor-css.php';
+require_once ASTRA_THEME_DIR . 'inc/dynamic-css/inline-on-mobile.php';
 require_once ASTRA_THEME_DIR . 'inc/class-astra-dynamic-css.php';
 require_once ASTRA_THEME_DIR . 'inc/class-astra-global-palette.php';
 
@@ -148,6 +151,11 @@ require_once ASTRA_THEME_DIR . 'inc/addons/breadcrumbs/class-astra-breadcrumbs.p
 require_once ASTRA_THEME_DIR . 'inc/addons/heading-colors/class-astra-heading-colors.php';
 require_once ASTRA_THEME_DIR . 'inc/builder/class-astra-builder-loader.php';
 
+// blog options compatibility with add-on version.
+if ( ( defined( 'ASTRA_EXT_VER' ) && version_compare( ASTRA_EXT_VER, '3.4.0', '>' ) ) || ! defined( 'ASTRA_EXT_VER' ) ) {
+	require_once ASTRA_THEME_DIR . 'inc/addons/blog/class-astra-blog.php';
+}
+
 // Elementor Compatibility requires PHP 5.4 for namespaces.
 if ( version_compare( PHP_VERSION, '5.4', '>=' ) ) {
 	require_once ASTRA_THEME_DIR . 'inc/compatibility/class-astra-elementor.php';
@@ -168,3 +176,15 @@ require_once ASTRA_THEME_DIR . 'inc/core/markup/class-astra-markup.php';
 require_once ASTRA_THEME_DIR . 'inc/core/deprecated/deprecated-filters.php';
 require_once ASTRA_THEME_DIR . 'inc/core/deprecated/deprecated-hooks.php';
 require_once ASTRA_THEME_DIR . 'inc/core/deprecated/deprecated-functions.php';
+add_filter( 'style_loader_tag', 'my_style_loader_tag_filter', 10, 2 );
+
+function my_style_loader_tag_filter( $html, $handle ) {
+	if ( $handle === 'astra-google-fonts' ) {
+		return str_replace(
+			"rel='stylesheet'",
+			"rel='prefetch' as='font'",
+			$html
+		);
+	}
+	return $html;
+}
