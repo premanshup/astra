@@ -1,6 +1,3 @@
-v3.5.1 (Unreleased)
-- Fix: Gutenberg alignwide section cuts screen at exact tablet breakpoint window.
-
 v3.5.0 (Unreleased)
 - New: Related Posts - Option to change "Related Posts" title.
 - New: Related Posts - Alignment option for "Related Posts" title.
@@ -16,6 +13,7 @@ v3.5.0 (Unreleased)
 - Fix: Builder - WooCommerce & EDD cart - Duplicate transition CSS avoided in case normal Astra CSS icons.
 - Fix: WooCommerce - "Product Categories" widget's child elements have missing icon when Astra's SVGs enabled.
 - Fix: Footer Builder - Hide on mobile/tablet for above footer is not working on frontend.
+- Fix: Gutenberg alignwide section cuts screen at exact tablet breakpoint window.
 
 v3.4.6
 - Fix: Footer alignment not working after update of v3.4.5.
