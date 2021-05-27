@@ -1119,6 +1119,17 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 				/* Parse CSS from array() -> min-width: (mobile-breakpoint) px CSS  */
 				$parse_css .= astra_parse_css( $gb_patterns_min_mobile_css, astra_get_mobile_breakpoint() );
 			}
+
+			$static_tablet_layout_min_css = array(
+				'.site-main .entry-content .alignwide' => array(
+					'margin-left'  => 'auto',
+					'margin-right' => 'auto',
+				),
+			);
+
+			/* Parse CSS from array() -> max-width: (tablet-breakpoint + 1)px CSS */
+			$parse_css .= astra_parse_css( $static_tablet_layout_min_css, '', astra_get_tablet_breakpoint( '', 1 ) );
+
 			$article_post_selector = ( ! Astra_Builder_Helper::apply_flex_based_css() ) ? '.ast-separate-container .ast-article-post,' : '';
 			$static_layout_css     = array(
 				$article_post_selector . '.ast-separate-container .ast-article-single' => array(
@@ -1686,7 +1697,7 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 
 			/* Parse CSS from array() -> min-width: (mobile-breakpoint) px CSS  */
 			$parse_css .= astra_parse_css( $container_min_mobile_css, astra_get_mobile_breakpoint() );
-			
+
 			$global_button_mobile = array(
 				$article_post_selector . '.ast-separate-container .ast-article-single, .ast-separate-container .comments-title, .ast-separate-container .ast-archive-description' => array(
 					'padding' => '1.5em 1em',
