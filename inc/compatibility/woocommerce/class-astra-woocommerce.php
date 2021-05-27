@@ -875,6 +875,12 @@ if ( ! class_exists( 'Astra_Woocommerce' ) ) :
 			$btn_border_color                 = astra_get_option( 'theme-button-border-group-border-color' );
 			$btn_border_h_color               = astra_get_option( 'theme-button-border-group-border-h-color' );
 
+			/**
+			 * Button visited color options.
+			 */
+			$btn_visited_color    = astra_get_option( 'button-visited-color', $btn_color );
+			$btn_visited_bg_color = astra_get_option( 'button-bg-visited-color', $btn_bg_color );
+
 			$css_output = array(
 				'.woocommerce span.onsale, .wc-block-grid__product .wc-block-grid__product-onsale' => array(
 					'background-color' => $theme_color,
@@ -889,6 +895,10 @@ if ( ! class_exists( 'Astra_Woocommerce' ) ) :
 					'color'            => $btn_h_color,
 					'border-color'     => $btn_bg_h_color,
 					'background-color' => $btn_bg_h_color,
+				),
+				'.woocommerce a.button:visited, .woocommerce button.button:visited, .woocommerce .woocommerce-message a.button:visited, .woocommerce #respond input#submit:visited, .woocommerce #respond input#submit.alt:visited, .woocommerce a.button.alt:visited, .woocommerce button.button.alt:visited, .woocommerce input.button.alt:visited, .woocommerce input.button:visited, .woocommerce button.button.alt.disabled:visited, .wc-block-grid__products .wc-block-grid__product .wp-block-button__link:visited, .woocommerce nav.woocommerce-pagination ul li a:visited' => array(
+					'color'            => $btn_visited_color,
+					'background-color' => $btn_visited_bg_color,
 				),
 				'.woocommerce-message, .woocommerce-info' => array(
 					'border-top-color' => $link_color,
@@ -994,6 +1004,57 @@ if ( ! class_exists( 'Astra_Woocommerce' ) ) :
 				$css_output['.woocommerce[class*="rel-up-columns-"] .site-main div.product .related.products ul.products li.product, .woocommerce-page .site-main ul.products li.product'] = array(
 					'width' => '100%',
 				);
+			}
+
+			if ( false === Astra_Icons::is_svg_icons() ) {
+				$css_output['.woocommerce ul.product-categories > li ul li:before'] = array(
+					'content'     => '"\e900"',
+					'padding'     => '0 5px 0 5px',
+					'display'     => 'inline-block',
+					'font-family' => 'Astra',
+					'transform'   => 'rotate(-90deg)',
+					'font-size'   => '11px',
+					'font-size'   => '0.7rem',
+				);
+			} else {
+				$css_output['.woocommerce ul.product-categories > li ul li'] = array(
+					'position' => 'relative',
+				);
+				if ( $is_site_rtl ) {
+					$css_output['.woocommerce ul.product-categories > li ul li:before'] = array(
+						'content'           => '""',
+						'border-width'      => '1px 0 0 1px',
+						'border-style'      => 'solid',
+						'display'           => 'inline-block',
+						'width'             => '6px',
+						'height'            => '6px',
+						'position'          => 'absolute',
+						'top'               => '50%',
+						'margin-top'        => '-2px',
+						'-webkit-transform' => 'rotate(45deg)',
+						'transform'         => 'rotate(45deg)',
+					);
+					$css_output['.woocommerce ul.product-categories > li ul li a']      = array(
+						'margin-right' => '15px',
+					);
+				} else {
+					$css_output['.woocommerce ul.product-categories > li ul li:before'] = array(
+						'content'           => '""',
+						'border-width'      => '1px 1px 0 0',
+						'border-style'      => 'solid',
+						'display'           => 'inline-block',
+						'width'             => '6px',
+						'height'            => '6px',
+						'position'          => 'absolute',
+						'top'               => '50%',
+						'margin-top'        => '-2px',
+						'-webkit-transform' => 'rotate(45deg)',
+						'transform'         => 'rotate(45deg)',
+					);
+					$css_output['.woocommerce ul.product-categories > li ul li a']      = array(
+						'margin-left' => '15px',
+					);
+				}
 			}
 
 			/* Parse WooCommerce General CSS from array() */
