@@ -324,8 +324,10 @@ var astraTriggerEvent = function astraTriggerEvent( el, typeArg ) {
 
 			// Close Popup on # link click inside Popup.
 			for ( link = 0, len = popupLinks.length; link < len; link++ ) {
-				popupLinks[link].addEventListener( 'click', triggerToggleClose, true );
-				popupLinks[link].headerType = 'off-canvas';
+				if( null !== popupLinks[link].getAttribute("href") && '#' !== popupLinks[link].getAttribute("href") ){
+					popupLinks[link].addEventListener( 'click', triggerToggleClose, true );
+					popupLinks[link].headerType = 'off-canvas';
+				}
 			}
 
 			AstraToggleSetup();
@@ -338,8 +340,10 @@ var astraTriggerEvent = function astraTriggerEvent( el, typeArg ) {
 
 			// Close Popup on # link click inside Popup.
 			for ( link = 0, len = mobileLinks.length; link < len; link++ ) {
-				mobileLinks[link].addEventListener( 'click', triggerToggleClose, true );
-				mobileLinks[link].headerType = 'dropdown';
+				if( null !== mobileLinks[link].getAttribute("href") && '#' !== mobileLinks[link].getAttribute("href") ){
+					mobileLinks[link].addEventListener( 'click', triggerToggleClose, true );
+					mobileLinks[link].headerType = 'dropdown';
+				}
 			}
 
 			// Close Popup on # link click inside Popup.
@@ -378,7 +382,7 @@ var astraTriggerEvent = function astraTriggerEvent( el, typeArg ) {
 
 			case 'dropdown':
 
-				var popupTrigger = document.querySelectorAll( '.menu-toggle' );
+				var popupTrigger = document.querySelectorAll( '.menu-toggle.toggled' );
 
 				for ( var item = 0;  item < popupTrigger.length; item++ ) {
 
@@ -417,31 +421,41 @@ var astraTriggerEvent = function astraTriggerEvent( el, typeArg ) {
 
 	} );
 
-	window.addEventListener('resize', function () {
+	var mobile_width = window.innerWidth;
+	function AstraHandleResizeEvent() {
 
-		var menu_offcanvas_close = document.getElementById('menu-toggle-close');
-		var menu_dropdown_close = document.querySelector('.menu-toggle.toggled');
-		var desktop_header_content = document.querySelector('#masthead > #ast-desktop-header .ast-desktop-header-content');
-		if ( menu_dropdown_close ) {
-			menu_dropdown_close.click();
-		}
+		var menu_offcanvas_close 	= document.getElementById('menu-toggle-close');
+		var menu_dropdown_close 	= document.querySelector('.menu-toggle.toggled');
+		var desktop_header_content	= document.querySelector('#masthead > #ast-desktop-header .ast-desktop-header-content');
+		var elementor_editor 		= document.querySelector('.elementor-editor-active');
+
 		if ( desktop_header_content ) {
 			desktop_header_content.style.display = 'none';
 		}
-		document.body.classList.remove( 'ast-main-header-nav-open', 'ast-popup-nav-open' );
 
-		if( menu_offcanvas_close ) {
+		if ( window.innerWidth !== mobile_width ) {
+			if ( menu_dropdown_close && null === elementor_editor ) {
+				menu_dropdown_close.click();
+			}
+			document.body.classList.remove( 'ast-main-header-nav-open', 'ast-popup-nav-open' );
+		}
+
+		if( menu_offcanvas_close && null === elementor_editor ) {
 			menu_offcanvas_close.click();
 		}
+		updateHeaderBreakPoint();
+		
+		if ( 'dropdown' === mobileHeaderType ) {
+			AstraToggleSetup();
+		}
+	}
 
+	window.addEventListener('resize', function(){
 		// Skip resize event when keyboard display event triggers on devices.
 		if( 'INPUT' !== document.activeElement.tagName ) {
-			updateHeaderBreakPoint();
-			if ( 'dropdown' === mobileHeaderType ) {
-				AstraToggleSetup();
-			}
+			AstraHandleResizeEvent();
 		}
-	});
+	} );
 
 	document.addEventListener('DOMContentLoaded', function () {
 		AstraToggleSetup();
@@ -721,7 +735,7 @@ var astraTriggerEvent = function astraTriggerEvent( el, typeArg ) {
 		if ( menu_class.indexOf('main-header-menu-toggle') !== -1 ) {
 			astraToggleClass(__main_header_all[event_index], 'toggle-on');
 			astraToggleClass(menu_toggle_all[event_index], 'toggled');
-			if ( sticky_header ) {
+			if ( sticky_header && 1 < menu_toggle_all.length ) {
 				astraToggleClass(menu_toggle_all['1'], 'toggled');
 			}
 			if (__main_header_all[event_index].classList.contains('toggle-on')) {

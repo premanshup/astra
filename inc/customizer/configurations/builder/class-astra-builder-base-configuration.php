@@ -440,7 +440,7 @@ final class Astra_Builder_Base_Configuration {
 						'input_attrs' => array(
 							'min' => 0,
 						),
-						'priority'    => 3,
+						'priority'    => 2,
 						'units'       => array(
 							'px' => 'px',
 							'em' => 'em',
@@ -459,7 +459,6 @@ final class Astra_Builder_Base_Configuration {
 						'section'   => $_section,
 						'transport' => 'postMessage',
 						'priority'  => 91,
-						'divider'   => array( 'ast_class' => 'ast-bottom-divider' ),
 					),
 
 					/**
@@ -477,7 +476,7 @@ final class Astra_Builder_Base_Configuration {
 						'input_attrs' => array(
 							'min' => 0,
 						),
-						'priority'    => 3,
+						'priority'    => 2,
 						'units'       => array(
 							'px' => 'px',
 							'em' => 'em',
