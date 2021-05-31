@@ -3,7 +3,7 @@ module.exports = function (grunt) {
     // Project configuration
     var autoprefixer = require('autoprefixer');
     var flexibility = require('postcss-flexibility');
-    var Astra_theme_Addons = ['background', 'border', 'color', 'customizer-link', 'description', 'divider', 'heading', 'hidden', 'link', 'radio-image', 'responsive', 'responsive-color', 'responsive-background', 'responsive-select', 'responsive-slider', 'responsive-spacing', 'select', 'settings-group', 'color-group', 'slider', 'sortable', 'spacing', 'typography', 'toggle-control'];
+    var Astra_theme_Addons = ['background', 'border', 'color', 'customizer-link', 'description', 'divider', 'heading', 'hidden', 'link', 'radio-image', 'responsive', 'responsive-color', 'responsive-background', 'responsive-select', 'responsive-slider', 'responsive-spacing', 'select', 'settings-group', 'color-group', 'slider', 'sortable', 'spacing', 'typography', 'toggle-control', 'responsive-toggle-control'];
 
     const sass = require('node-sass');
 
@@ -164,6 +164,13 @@ module.exports = function (grunt) {
                         dest: 'assets/css/unminified',
                         ext: '.css'
                     },
+                    {
+                        expand: true,
+                        cwd: 'sass/media/',
+                        src: ['galleries.scss'],
+                        dest: 'assets/css/unminified',
+                        ext: '.css'
+                    },
 
                     /* Compatibility */
                     {
@@ -171,6 +178,13 @@ module.exports = function (grunt) {
                         cwd: 'sass/site/compatibility/',
                         src: ['**.scss'],
                         dest: 'assets/css/unminified/compatibility',
+                        ext: '.css'
+                    },
+                    {
+                        expand: true,
+                        cwd: 'sass/site/compatibility/page-builder/',
+                        src: ['**.scss'],
+                        dest: 'assets/css/unminified/compatibility/page-builder/',
                         ext: '.css'
                     },
                     {
@@ -528,8 +542,20 @@ module.exports = function (grunt) {
                         dest: 'assets/css/minified/compatibility/divi-builder.min-rtl.css',
                     },
                     {
+                        src: 'assets/css/unminified/compatibility/page-builder/bb-plugin-rtl.css',
+                        dest: 'assets/css/minified/compatibility/page-builder/bb-plugin.min-rtl.css',
+                    },
+                    {
+                        src: 'assets/css/unminified/compatibility/page-builder/vc-plugin-rtl.css',
+                        dest: 'assets/css/minified/compatibility/page-builder/vc-plugin.min-rtl.css',
+                    },
+                    {
                         src: 'assets/css/unminified/compatibility/edd-rtl.css',
                         dest: 'assets/css/minified/compatibility/edd.min-rtl.css',
+                    },
+                    {
+                        src: 'assets/css/unminified/galleries-rtl.css',
+                        dest: 'assets/css/minified/galleries.min-rtl.css',
                     },
                 ]
             }
@@ -548,6 +574,9 @@ module.exports = function (grunt) {
                     '!.git/**',
                     '!.github/**',
                     '!bin/**',
+                    '!docs/**',
+                    '!assets/dynamic-css.css',
+                    '!contributing.md',
                     '!.gitlab-ci.yml',
                     '!cghooks.lock',
                     '!tests/**',
@@ -628,6 +657,7 @@ module.exports = function (grunt) {
                         '!node_modules/**',
                         '!php-tests/**',
                         '!bin/**',
+                        '!docs/**',
                         '!admin/bsf-core/**'
                     ]
                 }
@@ -718,6 +748,7 @@ module.exports = function (grunt) {
                     '!node_modules/**',
                     '!php-tests/**',
                     '!bin/**',
+                    '!docs/**',
                     '!admin/bsf-core/**'
                 ],
                 overwrite: true,
@@ -819,6 +850,7 @@ module.exports = function (grunt) {
 
     // Grunt release - Create installable package of the local files
     grunt.registerTask('release', ['clean:zip', 'copy:main', 'compress:main', 'clean:main']);
+    grunt.registerTask('release-no-clean', ['clean:zip', 'copy:main']);
 
     // Bump Version - `grunt version-bump --ver=<version-number>`
     grunt.registerTask('version-bump', function (ver) {
