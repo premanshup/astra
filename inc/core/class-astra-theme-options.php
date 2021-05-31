@@ -96,6 +96,8 @@ if ( ! class_exists( 'Astra_Theme_Options' ) ) {
 				return self::$defaults;
 			}
 
+			$palette_css_var_prefix = Astra_Global_Palette::get_css_variable_prefix();
+
 			// Defaults list of options.
 			self::$defaults = apply_filters(
 				'astra_theme_defaults',
@@ -109,9 +111,9 @@ if ( ! class_exists( 'Astra_Theme_Options' ) ) {
 					'blog-single-width'                    => 'default',
 					'blog-single-max-width'                => 1200,
 					'blog-single-meta'                     => array(
-						'comments',
 						'category',
 						'author',
+						'date',
 					),
 					// Blog.
 					'blog-post-structure'                  => array(
@@ -122,15 +124,16 @@ if ( ! class_exists( 'Astra_Theme_Options' ) ) {
 					'blog-max-width'                       => 1200,
 					'blog-post-content'                    => 'excerpt',
 					'blog-meta'                            => array(
-						'comments',
 						'category',
 						'author',
+						'date',
 					),
 					// Colors.
-					'text-color'                           => '#3a3a3a',
-					'link-color'                           => '#0170B9',
-					'theme-color'                          => '#0170B9',
-					'link-h-color'                         => '#3a3a3a',
+					'text-color'                           => 'var(' . $palette_css_var_prefix . '3)',
+					'link-color'                           => 'var(' . $palette_css_var_prefix . '0)',
+					'theme-color'                          => 'var(' . $palette_css_var_prefix . '0)',
+					'link-h-color'                         => 'var(' . $palette_css_var_prefix . '1)',
+					'heading-base-color'                   => 'var(' . $palette_css_var_prefix . '2)',
 
 					// Footer Bar Background.
 					'footer-bg-obj'                        => array(
@@ -166,8 +169,10 @@ if ( ! class_exists( 'Astra_Theme_Options' ) ) {
 					// Buttons.
 					'button-color'                         => '',
 					'button-h-color'                       => '',
+					'button-visited-color'                 => '',
 					'button-bg-color'                      => '',
 					'button-bg-h-color'                    => '',
+					'button-bg-visited-color'              => '',
 					'theme-button-padding'                 => array(
 						'desktop'      => array(
 							'top'    => 10,
@@ -402,9 +407,9 @@ if ( ! class_exists( 'Astra_Theme_Options' ) ) {
 						'mobile-unit'  => 'px',
 					),
 					'font-size-page-title'                 => array(
-						'desktop'      => 30,
-						'tablet'       => '',
-						'mobile'       => '',
+						'desktop'      => 24,
+						'tablet'       => 24,
+						'mobile'       => 24,
 						'desktop-unit' => 'px',
 						'tablet-unit'  => 'px',
 						'mobile-unit'  => 'px',
@@ -459,7 +464,7 @@ if ( ! class_exists( 'Astra_Theme_Options' ) ) {
 					),
 
 					// Sidebar.
-					'site-sidebar-layout'                  => 'right-sidebar',
+					'site-sidebar-layout'                  => 'no-sidebar',
 					'site-sidebar-width'                   => 30,
 					'single-page-sidebar-layout'           => 'default',
 					'single-post-sidebar-layout'           => 'default',
