@@ -1155,7 +1155,7 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 				$parse_css .= astra_parse_css( $gb_patterns_min_mobile_css, astra_get_mobile_breakpoint() );
 			}
 
-			if( self::set_gutenberg_wide_block_auto_margin() ) {
+			if ( self::set_gutenberg_wide_block_auto_margin() ) {
 				$wide_block_css = array(
 					'.site-main .entry-content .alignwide' => array(
 						'margin-left'  => 'auto',
@@ -3153,7 +3153,7 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 		 * @return boolean false if it is an existing user , true if not.
 		 */
 		public static function set_gutenberg_wide_block_auto_margin() {
-			$astra_settings = get_option( ASTRA_THEME_SETTINGS );
+			$astra_settings                                 = get_option( ASTRA_THEME_SETTINGS );
 			$astra_settings['can-update-wide-block-margin'] = isset( $astra_settings['can-update-wide-block-margin'] ) ? false : true;
 			return apply_filters( 'astra_gutenberg_set_wide_block_middle_align', $astra_settings['can-update-wide-block-margin'] );
 		}
