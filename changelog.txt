@@ -1,3 +1,6 @@
+v3.4.8
+- Updated the theme screenshot.
+
 v3.4.7
 - Updated the theme screenshot and added license information for the images used in the screenshot.
 
