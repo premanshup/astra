@@ -3017,3 +3017,18 @@ function astra_site_title_tagline_responsive_control_migration() {
 
 	update_option( 'astra-settings', $theme_options );
 }
+
+/**
+ * Set flag to provide backward compatibility for wide block CSS, where we are going to add basic margin: auto CSS for left & right.
+ *
+ * @since x.x.x
+ * @return void.
+ */
+function astra_update_wide_block_margin() {
+	$theme_options = get_option( 'astra-settings', array() );
+
+	if ( ! isset( $theme_options['can-update-wide-block-margin'] ) ) {
+		$theme_options['can-update-wide-block-margin'] = false;
+		update_option( 'astra-settings', $theme_options );
+	}
+}

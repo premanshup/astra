@@ -588,11 +588,11 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 					'padding-right' => '1em',
 				);
 			}
-			
-			if ( get_theme_mod( 'custom_logo' ) 
-				|| astra_get_option( 'transparent-header-logo' ) 
-				|| astra_get_option( 'sticky-header-logo' ) 
-				|| $page_header_logo 
+
+			if ( get_theme_mod( 'custom_logo' )
+				|| astra_get_option( 'transparent-header-logo' )
+				|| astra_get_option( 'sticky-header-logo' )
+				|| $page_header_logo
 				|| is_customize_preview() ) {
 
 				$css_output['.site-logo-img img'] = array(
@@ -602,7 +602,7 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 
 			/* Parse CSS from array() */
 			$parse_css = astra_parse_css( $css_output );
-			
+
 			if ( ! Astra_Builder_Helper::$is_header_footer_builder_active ) {
 
 				$old_header_mobile_toggle = array(
@@ -1155,15 +1155,17 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 				$parse_css .= astra_parse_css( $gb_patterns_min_mobile_css, astra_get_mobile_breakpoint() );
 			}
 
-			$static_tablet_layout_min_css = array(
-				'.site-main .entry-content .alignwide' => array(
-					'margin-left'  => 'auto',
-					'margin-right' => 'auto',
-				),
-			);
+			if( self::set_gutenberg_wide_block_auto_margin() ) {
+				$wide_block_css = array(
+					'.site-main .entry-content .alignwide' => array(
+						'margin-left'  => 'auto',
+						'margin-right' => 'auto',
+					),
+				);
 
-			/* Parse CSS from array() -> max-width: (tablet-breakpoint + 1)px CSS */
-			$parse_css .= astra_parse_css( $static_tablet_layout_min_css, '', astra_get_tablet_breakpoint( '', 1 ) );
+				/* Parse CSS from array() */
+				$parse_css .= astra_parse_css( $wide_block_css );
+			}
 
 			$static_layout_css = array(
 				'.ast-separate-container .ast-article-post, .ast-separate-container .ast-article-single' => array(
@@ -3142,6 +3144,18 @@ if ( ! class_exists( 'Astra_Dynamic_CSS' ) ) {
 			$astra_settings = get_option( ASTRA_THEME_SETTINGS );
 			$astra_settings['guntenberg-button-pattern-compat-css'] = isset( $astra_settings['guntenberg-button-pattern-compat-css'] ) ? false : true;
 			return apply_filters( 'astra_gutenberg_patterns_compatibility', $astra_settings['guntenberg-button-pattern-compat-css'] );
+		}
+
+		/**
+		 * Gutenberg wide block compatibility change.
+		 *
+		 * @since x.x.x
+		 * @return boolean false if it is an existing user , true if not.
+		 */
+		public static function set_gutenberg_wide_block_auto_margin() {
+			$astra_settings = get_option( ASTRA_THEME_SETTINGS );
+			$astra_settings['can-update-wide-block-margin'] = isset( $astra_settings['can-update-wide-block-margin'] ) ? false : true;
+			return apply_filters( 'astra_gutenberg_set_wide_block_middle_align', $astra_settings['can-update-wide-block-margin'] );
 		}
 
 		/**
