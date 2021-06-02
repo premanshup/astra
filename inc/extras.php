@@ -598,11 +598,11 @@ function astra_preload_styles( $html, $handle, $href, $media ) {
 	if( ! is_admin() && 'astra-contact-form-7' === $handle ) {
 		// $html = str_replace( "rel='stylesheet'", 'rel="preload" as="style"', $html );
 		// vl( $html );
-		$html = '<link rel="preload" id="' . $handle . '" href="' . $href . '" as="style" type="text/css" media="' . $media . '">';
+		$html = '<link rel="preload" id="' . $handle . '-css" href="' . $href . '" as="style">';
 		// vl( $html );
 	}
 
     return $html;
 }
 
-// add_filter( 'style_loader_tag', 'astra_preload_styles', 10, 4 );
+add_filter( 'style_loader_tag', 'astra_preload_styles', 10, 4 );
