@@ -3574,6 +3574,10 @@ li.ast-masthead-custom-menu-items .ast-search-icon .astra-search-icon {
   margin-bottom: 0;
 }
 
+.bypostauthor {
+  display: block;
+}
+
 /* .alignwide & .alignfull CSS compatibility */
 .ast-no-sidebar .entry-content .alignfull {
   margin-left: calc(-50vw  + 50%);

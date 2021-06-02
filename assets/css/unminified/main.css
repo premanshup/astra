@@ -1514,6 +1514,10 @@ body {
   margin-bottom: 0;
 }
 
+.bypostauthor {
+  display: block;
+}
+
 /* .alignwide & .alignfull CSS compatibility */
 .ast-no-sidebar .entry-content .alignfull {
   margin-left: calc(-50vw  + 50%);
