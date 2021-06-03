@@ -123,17 +123,53 @@ if ( ! class_exists( 'Astra_Customizer' ) ) {
 
 			}
 
+			// Disable block editor for widgets in the customizer.
+			if ( defined( 'GUTENBERG_VERSION' ) && version_compare( GUTENBERG_VERSION, '10.6.2', '>' ) && is_customize_preview() ) {
+				add_filter( 'gutenberg_use_widgets_block_editor', '__return_false' );
+			}
+
 			add_action( 'customize_controls_enqueue_scripts', array( $this, 'controls_scripts' ) );
 			add_filter( 'customize_controls_enqueue_scripts', array( $this, 'enqueue_customizer_scripts' ), 999 );
 
 			add_action( 'customize_controls_print_footer_scripts', array( $this, 'print_footer_scripts' ) );
-
 
 			add_action( 'customize_register', array( $this, 'customize_register_panel' ), 2 );
 			add_action( 'customize_register', array( $this, 'customize_register' ) );
 			add_action( 'customize_save_after', array( $this, 'customize_save' ) );
 			add_action( 'customize_save_after', array( $this, 'delete_cached_partials' ) );
 			add_action( 'wp_head', array( $this, 'preview_styles' ) );
+
+			add_action( 'wp_ajax_astra_regenerate_fonts_folder', array( $this, 'regenerate_astra_fonts_folder' ) );
+		}
+
+		/**
+		 * Reset font folder
+		 *
+		 * @access public
+		 * @return void
+		 *
+		 * @since x.x.x
+		 */
+		public function regenerate_astra_fonts_folder() {
+
+			check_ajax_referer( 'astra-regenerate-local-fonts', 'nonce' );
+
+			if ( ! current_user_can( 'edit_theme_options' ) ) {
+				wp_send_json_error( 'invalid_permissions' );
+			}
+
+			if ( class_exists( 'Astra_WebFont_Loader' ) ) {
+				$local_font_loader = new Astra_WebFont_Loader( '' );
+				$flushed           = $local_font_loader->astra_delete_fonts_folder();
+
+				if ( ! $flushed ) {
+					wp_send_json_error( 'failed_to_flush' );
+				}
+
+				wp_send_json_success();
+			}
+
+			wp_send_json_error( 'no_font_loader' );
 		}
 
 		/**
@@ -934,6 +970,9 @@ if ( ! class_exists( 'Astra_Customizer' ) ) {
 					'component_limit'         => Astra_Builder_Helper::$component_limit,
 					'is_site_rtl'             => is_rtl(),
 					'defaults'                => $this->get_control_defaults(),
+					'astraRegenerateFonts'    => wp_create_nonce( 'astra-regenerate-local-fonts' ),
+					'successFlushed'          => __( 'Successfully Flushed', 'astra' ),
+					'failedFlushed'           => __( 'Failed, Reload page and try again later.', 'astra' ),
 				)
 			);
 
@@ -1041,6 +1080,7 @@ if ( ! class_exists( 'Astra_Customizer' ) ) {
 			require ASTRA_THEME_DIR . 'inc/customizer/configurations/typography/class-astra-content-typo-configs.php';
 			require ASTRA_THEME_DIR . 'inc/customizer/configurations/typography/class-astra-header-typo-configs.php';
 			require ASTRA_THEME_DIR . 'inc/customizer/configurations/typography/class-astra-single-typo-configs.php';
+			require ASTRA_THEME_DIR . 'inc/customizer/configurations/performance/class-astra-performance-configs.php';
 
 			if ( astra_existing_header_footer_configs() ) {
 				require ASTRA_THEME_DIR . 'inc/customizer/configurations/buttons/class-astra-existing-button-configs.php';
@@ -1121,7 +1161,6 @@ if ( ! class_exists( 'Astra_Customizer' ) ) {
 					'santize_callback' => array( 'Astra_Customizer_Sanitizes', 'sanitize_customizer_links' ),
 				)
 			);
-
 
 			/**
 			 * Helper files
