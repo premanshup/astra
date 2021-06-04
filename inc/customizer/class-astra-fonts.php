@@ -113,12 +113,17 @@ final class Astra_Fonts {
 
 		$google_font_url = self::google_fonts_url( $google_fonts, $font_subset );
 
+		// Do not load Google font remote or local font asset if not any font selected.
+		if ( '' === $google_font_url ) {
+			return;
+		}
+
 		/**
 		 * Support self hosted Google Fonts.
 		 *
 		 * @since x.x.x
 		 */
-		if ( astra_get_option( 'load-google-fonts-locally', false ) && ! is_customize_preview() ) {
+		if ( astra_get_option( 'load-google-fonts-locally' ) && ! is_customize_preview() ) {
 			if ( astra_get_option( 'preload-local-fonts' ) ) {
 				ast_load_preload_local_fonts( $google_font_url );
 			}
