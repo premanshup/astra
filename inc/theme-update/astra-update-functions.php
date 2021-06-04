@@ -3017,3 +3017,18 @@ function astra_site_title_tagline_responsive_control_migration() {
 
 	update_option( 'astra-settings', $theme_options );
 }
+
+/**
+ * Set flag to provide backward compatibility to not change directly on user's end.
+ *
+ * @since x.x.x
+ * @return void.
+ */
+function astra_update_button_defaults_and_gb_button_patterns() {
+	$theme_options = get_option( 'astra-settings', array() );
+
+	if ( ! isset( $theme_options['can-update-button-defaults-to-gb-support'] ) ) {
+		$theme_options['can-update-button-defaults-to-gb-support'] = false;
+		update_option( 'astra-settings', $theme_options );
+	}
+}
