@@ -70,13 +70,12 @@ echo -e $(status_message "Ensuring that files can be uploaded...")
 container mkdir -p \
 	/var/www/html/wp-content/uploads \
 	/var/www/html/wp-content/upgrade
-	container chmod 777 \
+	container chmod 767 \
 	/var/www/html/wp-content \
 	/var/www/html/wp-content/plugins \
 	/var/www/html/wp-config.php \
 	/var/www/html/wp-settings.php \
 	/var/www/html/wp-content/uploads \
-	/var/www chmod 777 \
 	/var/www/html/wp-content/upgrade
 
 CURRENT_WP_VERSION=$(wp core version | tr -d '\r')
@@ -130,6 +129,7 @@ fi
 
 # Configure Theme check.
 echo -e $(status_message "anhskohbo/wp-cli-themecheck...")
+container chmod 777 /var/www
 wp --allow-root package install anhskohbo/wp-cli-themecheck
 
 echo -e $(status_message "themecheck --theme=astra...")
