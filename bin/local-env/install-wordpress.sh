@@ -70,16 +70,13 @@ echo -e $(status_message "Ensuring that files can be uploaded...")
 container mkdir -p \
 	/var/www/html/wp-content/uploads \
 	/var/www/html/wp-content/upgrade
-container chmod 777 \
-	/etc \
+	container chmod 767 \
 	/var/www/html/wp-content \
 	/var/www/html/wp-content/plugins \
 	/var/www/html/wp-config.php \
 	/var/www/html/wp-settings.php \
 	/var/www/html/wp-content/uploads \
 	/var/www/html/wp-content/upgrade
-
-container chmod 777 .
 
 CURRENT_WP_VERSION=$(wp core version | tr -d '\r')
 echo -e $(status_message "Current WordPress version: $CURRENT_WP_VERSION...")
