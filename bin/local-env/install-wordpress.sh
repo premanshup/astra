@@ -76,7 +76,7 @@ container mkdir -p \
 	/var/www/html/wp-config.php \
 	/var/www/html/wp-settings.php \
 	/var/www/html/wp-content/uploads \
-	chmod 777 /var/www \
+	/var/www chmod 777 \
 	/var/www/html/wp-content/upgrade
 
 CURRENT_WP_VERSION=$(wp core version | tr -d '\r')
