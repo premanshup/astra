@@ -68,6 +68,7 @@ echo -e $(status_message "Subscriber created! Username: subscriber Password: pas
 # Make sure the uploads and upgrade folders exist and we have permissions to add files.
 echo -e $(status_message "Ensuring that files can be uploaded...")
 container mkdir -p \
+	sudo chmod 755 /var/www
 	/var/www/html/wp-content/uploads \
 	/var/www/html/wp-content/upgrade
 	container chmod 767 \
