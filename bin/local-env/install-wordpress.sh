@@ -130,6 +130,7 @@ fi
 # Configure Theme check.
 echo -e $(status_message "anhskohbo/wp-cli-themecheck...")
 container chmod 777 /var/www
+container chmod 777 /etc/X11/fs/.wp-cli/packages
 wp --allow-root package install anhskohbo/wp-cli-themecheck
 
 echo -e $(status_message "themecheck --theme=astra...")
