@@ -196,7 +196,16 @@ if ( ! class_exists( 'Astra_Woocommerce' ) ) :
 				return $classes;
 			}
 
+			$header_cart_icon_type = astra_get_option( 'woo-header-cart-icon' );
 			$header_cart_icon_style = astra_get_option( 'woo-header-cart-icon-style' );
+
+			$classes[]                  = 'ast-menu-cart-type-' . $header_cart_icon_type;
+
+			/**
+			 * .ast-menu-cart-type-default.ast-menu-cart-fill .ast-cart-menu-wrap { background: transparent; }
+			 * Use this to resolve issue.
+			 * Or ".ast-menu-cart-fill .ast-cart-menu-wrap .count, .ast-menu-cart-fill .ast-cart-menu-wrap, .ast-menu-cart-fill .ast-addon-cart-wrap .ast-woo-header-cart-info-wrap, .ast-menu-cart-fill .ast-addon-cart-wrap" selector to manipulate.
+			 */
 
 			$classes[]                  = 'ast-menu-cart-' . $header_cart_icon_style;
 			$header_cart_icon_has_color = astra_get_option( 'woo-header-cart-icon-color' );
