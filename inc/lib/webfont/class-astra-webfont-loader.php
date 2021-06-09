@@ -389,14 +389,18 @@ class Astra_WebFont_Loader {
 			}
 		}
 
-		// Caching this for further optimization.
-		update_site_option( 'astra_local_font_files', $local_font );
+		$preload_links_output = '';
 
 		foreach ( $local_font as $key => $local_font ) {
 			if ( $local_font ) {
-				echo '<link rel="preload" href="' . esc_url( $local_font ) . '" as="font" type="font/' . esc_attr( $this->font_format ) . '" crossorigin>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				$preload_links_output .= '<link rel="preload" href="' . esc_url( $local_font ) . '" as="font" type="font/' . esc_attr( $this->font_format ) . '" crossorigin>';
 			}
 		}
+
+		echo $preload_links_output;  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+
+		// Caching this for further optimization.
+		update_site_option( 'astra_local_font_files', $preload_links_output );
 	}
 
 	/**

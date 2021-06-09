@@ -619,15 +619,10 @@ function ast_get_webfont_url( $url, $format = 'woff2' ) {
 function ast_load_preload_local_fonts( $url, $format = 'woff2' ) {
 
 	// Check if cached font files data preset present or not. Basically avoiding 'Astra_WebFont_Loader' class rendering.
-	$astra_local_font_files = get_site_option( 'astra_local_font_files', false );
+	$preload_links_output = get_site_option( 'astra_local_font_files', false );
 
-	if ( is_array( $astra_local_font_files ) && ! empty( $astra_local_font_files ) ) {
-		$font_format = apply_filters( 'astra_local_google_fonts_format', $format );
-		foreach ( $astra_local_font_files as $key => $local_font ) {
-			if ( $local_font ) {
-				echo '<link rel="preload" href="' . esc_url( $local_font ) . '" as="font" type="font/' . esc_attr( $font_format ) . '" crossorigin>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			}
-		}
+	if( '' !== $preload_links_output && $preload_links_output ) {
+		echo $preload_links_output;  // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		return;
 	}
 
