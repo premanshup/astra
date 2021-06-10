@@ -85,7 +85,8 @@ if ( ! class_exists( 'Astra_Theme_Background_Updater' ) ) {
 				'astra_update_related_posts_grid_layout',
 				'astra_site_title_tagline_responsive_control_migration',
 			),
-			'3.5.1' => array(
+			'3.6.0' => array(
+				'astra_remove_logo_max_width',
 				'astra_update_button_defaults_and_gb_button_patterns',
 			),
 		);
