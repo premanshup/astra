@@ -15,6 +15,7 @@ services:
 
   cli:
     image: wordpress:cli
+    command: wp package install anhskohbo/wp-cli-themecheck
     user: xfs
     volumes:
       - wordpress_data:/var/www/html
