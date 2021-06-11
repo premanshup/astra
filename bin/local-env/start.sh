@@ -63,6 +63,8 @@ wp plugin install theme-check --activate
 echo -e "-----------WP INFO---------------"
 wp --info
 
+wp global-config list
+
 wp package install anhskohbo/wp-cli-themecheck --allow-root
 
 echo -e "Theme Check In Progress"
