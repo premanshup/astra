@@ -56,3 +56,11 @@ echo -e "then open $(action_format "$CURRENT_URL") to get started!"
 
 echo -e "\n\nAccess the above install using the following credentials:"
 echo -e "Default username: $(action_format "admin"), password: $(action_format "password")"
+
+echo -e "Theme Check plugin installed"
+wp plugin install theme-check --activate
+
+echo -e "Theme Check In Progress"
+wp themecheck --theme=astra
+
+echo -e "Theme Check Done"
