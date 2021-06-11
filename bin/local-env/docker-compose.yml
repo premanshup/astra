@@ -16,7 +16,7 @@ services:
   cli:
     privileged: true
     image: wordpress:cli
-    user: xfs
+    user: root
     volumes:
       - wordpress_data:/var/www/html
       - ../../:/var/www/html/wp-content/themes/astra
