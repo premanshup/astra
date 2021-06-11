@@ -63,7 +63,13 @@ wp plugin install theme-check --activate
 echo -e "-----------WP INFO---------------"
 wp --info
 
-wp global-config list
+# Run setup
+echo "Setting up environment"
+init_environment
+
+echo -e "-----------WP INFO AGAIN---------------"
+wp --info
+
 
 wp package install anhskohbo/wp-cli-themecheck --allow-root
 
