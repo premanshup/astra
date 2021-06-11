@@ -15,11 +15,11 @@ services:
 
   cli:
     image: wordpress:cli
-    command: wp package install anhskohbo/wp-cli-themecheck
     user: xfs
     volumes:
       - wordpress_data:/var/www/html
       - ../../:/var/www/html/wp-content/themes/astra
+    command: wp package install anhskohbo/wp-cli-themecheck
     env_file:
       - .env.wp
     depends_on:
