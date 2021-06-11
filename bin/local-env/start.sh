@@ -60,6 +60,9 @@ echo -e "Default username: $(action_format "admin"), password: $(action_format "
 echo -e "Theme Check plugin installed"
 wp plugin install theme-check --activate
 
+echo -e "-----------WP INFO---------------"
+wp --info
+
 wp package install anhskohbo/wp-cli-themecheck --allow-root
 
 echo -e "Theme Check In Progress"
