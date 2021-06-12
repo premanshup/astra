@@ -15,6 +15,11 @@ cd "$(dirname "$0")/../.."
 # Check whether Composer installed
 . "$(dirname "$0")/install-composer.sh"
 
+# Install WP-CLI
+echo 'INSTALLING WP CLI'
+curl -o /bin/wp-cli.phar https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
+chmod +x /bin/wp-cli.phar /bin/wp /bin/publish \
+
 # Check whether Docker is installed and running
 . "$(dirname "$0")/launch-containers.sh"
 
