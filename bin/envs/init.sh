@@ -10,7 +10,8 @@ then
 	# Install dependencies.
 	composer install --no-dev
 	grunt release
-	ZIP_URL="/var/www/html/wp-content/themes/astra/astra.zip"
+	ls
+	ZIP_URL="/var/www/astra.zip"
 fi
 export DOCKER_FILE=docker-compose.ci.yml
 
