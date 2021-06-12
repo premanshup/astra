@@ -17,7 +17,7 @@ services:
       - wpcore:/var/www/html
       - ./bin:/var/www/html/bin
       - ~/.wp-content:/var/www/html/wp-content
-      - ./dist/neve:/var/www/html/wp-content/themes/neve
+      - ./dist/astra:/var/www/html/wp-content/themes/astra
     depends_on:
       - mysql
       - wordpress
@@ -32,7 +32,7 @@ services:
       - wpcore:/var/www/html
       - ./bin:/var/www/html/bin
       - ~/.wp-content:/var/www/html/wp-content
-      - ./dist/neve:/var/www/html/wp-content/themes/neve
+      - ./dist/astra:/var/www/html/wp-content/themes/astra
     restart: always
     environment:
       - WORDPRESS_DB_NAME=wordpress
