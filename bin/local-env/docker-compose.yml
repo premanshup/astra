@@ -19,12 +19,12 @@ services:
     volumes:
       - wordpress_data:/var/www/html
       - ../../:/var/www/html/wp-content/themes/astra
-    command: wp package install anhskohbo/wp-cli-themecheck
     env_file:
       - .env.wp
     depends_on:
       - mysql
       - wordpress
+    command: wp package install anhskohbo/wp-cli-themecheck
     command: tail -f /dev/null
 
   mysql:
