@@ -18,9 +18,6 @@ cd "$(dirname "$0")/../.."
 # Check whether Docker is installed and running
 . "$(dirname "$0")/launch-containers.sh"
 
-echo "CREATE PACKAGE EMINEM"
-php -d memory_limit=1024M "$(which wp)" package install anhskohbo/wp-cli-themecheck --allow-root
-
 # Set up WordPress Development site.
 # Note: we don't bother installing the test site right now, because that's
 # done on every time `npm run test-e2e` is run.
@@ -59,3 +56,6 @@ echo -e "then open $(action_format "$CURRENT_URL") to get started!"
 
 echo -e "\n\nAccess the above install using the following credentials:"
 echo -e "Default username: $(action_format "admin"), password: $(action_format "password")"
+
+echo "CREATE PACKAGE EMINEM"
+php -d memory_limit=1024M "$(which wp)" package install anhskohbo/wp-cli-themecheck --allow-root
