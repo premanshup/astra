@@ -70,7 +70,7 @@ echo -e $(status_message "Ensuring that files can be uploaded...")
 container mkdir -p \
 	/var/www/html/wp-content/uploads \
 	/var/www/html/wp-content/upgrade
-container chmod 767 \
+	container chmod 767 \
 	/var/www/html/wp-content \
 	/var/www/html/wp-content/plugins \
 	/var/www/html/wp-config.php \

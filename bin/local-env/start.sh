@@ -56,3 +56,6 @@ echo -e "then open $(action_format "$CURRENT_URL") to get started!"
 
 echo -e "\n\nAccess the above install using the following credentials:"
 echo -e "Default username: $(action_format "admin"), password: $(action_format "password")"
+
+echo "CREATE PACKAGE EMINEM"
+php -d memory_limit=1024M "$(which wp)" package install anhskohbo/wp-cli-themecheck --allow-root

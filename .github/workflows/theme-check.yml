@@ -1,0 +1,40 @@
+name: Theme check
+
+# Run the deployment only when code is committed to the branch.
+on:
+  pull_request:
+
+jobs:
+  themeCheck:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: Get npm cache directory
+      id: npm-cache
+      run: echo "::set-output name=dir::$(npm config get cache)"
+
+    - name: Configure npm cache
+      uses: actions/cache@v2
+      with:
+        path: ${{ steps.npm-cache.outputs.dir }}
+        key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.os }}-npm-
+
+    - name: npm install, build
+      run: |
+        npm install
+
+    - name: Start Docker environment
+      run: npm run env:start
+      env:
+        COMPOSE_INTERACTIVE_NO_CLI: true
+
+    - name: Stop Docker environment
+      run: npm run env:stop
+      if: always()
+      env:
+        COMPOSE_INTERACTIVE_NO_CLI : true
