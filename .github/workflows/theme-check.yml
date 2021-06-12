@@ -34,7 +34,7 @@ jobs:
         COMPOSE_INTERACTIVE_NO_CLI: true
 
     - name: Theme Check Run
-    - run: ./bin/local-env/theme-check.sh
+      run: ./bin/local-env/theme-check.sh
 
     - name: Stop Docker environment
       run: npm run env:stop
