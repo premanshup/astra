@@ -33,12 +33,6 @@ jobs:
       env:
         COMPOSE_INTERACTIVE_NO_CLI: true
 
-    - name: Make run-theme-check executable
-      run: chmod +x ./bin/theme-check.sh
-
-    - name: Theme Check Run
-      run: ./bin/theme-check.sh
-
     - name: Stop Docker environment
       run: npm run env:stop
       if: always()
