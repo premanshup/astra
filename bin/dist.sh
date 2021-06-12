@@ -17,7 +17,8 @@ if [ ! -d "artifact" ]; then
   mkdir "artifact"
 fi
 
+rsync -rc --exclude-from ".distignore" "./" "dist/$BUILD_NAME"
+
 cd dist
 zip -r "../artifact/$BUILD_NAME" "./$BUILD_NAME/"
 cd -
-
