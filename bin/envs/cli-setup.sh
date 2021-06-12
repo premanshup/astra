@@ -13,7 +13,8 @@ init_environment(){
 	rm -rf  /var/www/html/wp-content/themes/*
 	chmod 0777 -R /var/www/html/wp-content/
 	echo "Installing Astra theme from $ASTRA_LOCATION"
-	wp --allow-root theme install --activate $ASTRA_LOCATION
+	# wp --allow-root theme install --activate $ASTRA_LOCATION
+	wp --allow-root theme activate astra
 	wp --allow-root option update fresh_site 0
   echo "Installing Theme API Plugin"
   wp --allow-root plugin install https://github.com/Codeinwp/wp-thememods-api/archive/main.zip --force --activate
