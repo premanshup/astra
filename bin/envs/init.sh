@@ -13,7 +13,7 @@ then
 	ls
 	echo $PWD
 	npm run dist
-	ZIP_URL="/tmp/repo/neve/artifact/astra.zip"
+	ZIP_URL="/tmp/repo/astra/artifact/astra.zip"
 fi
 export DOCKER_FILE=docker-compose.ci.yml
 
