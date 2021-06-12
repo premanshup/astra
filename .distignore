@@ -1,11 +1,16 @@
 .git
+*.git
 CONTRIBUTING.md
 .distignore
 .gitignore
+dist
+*.zip
 node_modules/**
 build/**
 css/sourcemap/**
 .git/**
+.github
+.editorconfig
 .github/**
 bin/**
 docs/**
