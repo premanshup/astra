@@ -18,6 +18,6 @@ if [ ! -d "artifact" ]; then
 fi
 
 cd dist
-zip -r "../artifact/astra-3.5.0" "./astra-3.5.0/"
+zip -r "../artifact/$BUILD_NAME" "./$BUILD_NAME/"
 cd -
 
