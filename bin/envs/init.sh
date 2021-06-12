@@ -9,8 +9,8 @@ then
 	npm install
 	# Install dependencies.
 	composer install --no-dev
-	grunt minify
-	ZIP_URL="/tmp/repo/astra/artifact/astra.zip"
+	grunt release
+	ZIP_URL="/var/www/html/wp-content/themes/astra/astra.zip"
 fi
 export DOCKER_FILE=docker-compose.ci.yml
 
