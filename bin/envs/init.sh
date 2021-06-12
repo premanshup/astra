@@ -25,3 +25,5 @@ done
 
 # Run setup
 echo "Setting up environment $WP_ENV"
+
+docker-compose -f $DOCKER_FILE run  --rm -u root cli bash -c "/var/www/html/bin/envs/cli-setup.sh $ZIP_URL $WP_VERSION $WP_ENV $SKIP_CACHE"
