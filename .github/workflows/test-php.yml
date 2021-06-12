@@ -25,6 +25,9 @@ jobs:
           echo "::set-output name=dir::$(composer config cache-files-dir)"
       - name: Make run-e2e executable
         run: chmod +x ./bin/run-e2e.sh
+        run: chmod +x ./bin/cli-setup.sh
+        run: chmod +x ./bin/run-theme-check.sh
+        run: chmod +x ./bin/install-theme-check.sh
       - uses: actions/cache@v1
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
