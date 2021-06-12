@@ -39,3 +39,15 @@ mkdir -p /var/www/html/wp-content/uploads
 rm -rf /var/www/html/wp-content/plugins/akismet
 
 init_environment
+
+php -d memory_limit=1024M "$(which wp)" package install anhskohbo/wp-cli-themecheck --allow-root
+
+wp plugin install theme-check --activate --allow-root
+
+wp themecheck --theme=neve --no-interactive --allow-root
+
+wp --allow-root cache flush
+
+if [ $SKIP_CACHE == "no" ]; then
+	wp --allow-root db export $WP_CACHED_ENV
+fi
