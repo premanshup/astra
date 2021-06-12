@@ -21,5 +21,7 @@ jobs:
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
       - name: Provide permission to init.sh
         run: chmod +x ./bin/envs/init.sh
+      - name: Provide permission to cli-setup.sh
+        run: chmod +x ./bin/envs/cli-setup.sh
       - run: ./bin/envs/init.sh theme-check latest yes
 
