@@ -17,8 +17,9 @@ cd "$(dirname "$0")/../.."
 
 # Install WP-CLI
 echo 'INSTALLING WP CLI'
-curl -o /bin/wp-cli.phar "https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar" \
-chmod +x /bin/wp-cli.phar /bin/wp /bin/publish \
+if command_exists "curl"; then
+curl -o "/bin/wp-cli.phar" "https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar" \
+fi
 
 # Check whether Docker is installed and running
 . "$(dirname "$0")/launch-containers.sh"
