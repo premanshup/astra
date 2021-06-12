@@ -19,5 +19,7 @@ jobs:
         with:
           path: ${{ steps.composer-cache.outputs.dir }}
           key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+      - name: Provide permission to init.sh
+        run: chmod +x ./bin/envs/init.sh
       - run: ./bin/envs/init.sh theme-check latest yes
 
