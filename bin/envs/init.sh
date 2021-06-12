@@ -11,6 +11,7 @@ then
 	composer install --no-dev
 	grunt release
 	ls
+	echo $PWD
 	ZIP_URL="/var/www/astra-3.5.0.zip"
 fi
 export DOCKER_FILE=docker-compose.ci.yml
