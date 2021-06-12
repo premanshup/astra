@@ -12,7 +12,8 @@ then
 	grunt release
 	ls
 	echo $PWD
-	ZIP_URL="/home/runner/work/astra/astra/astra-3.5.0.zip"
+	npm run dist
+	ZIP_URL="/tmp/repo/neve/artifact/astra.zip"
 fi
 export DOCKER_FILE=docker-compose.ci.yml
 
