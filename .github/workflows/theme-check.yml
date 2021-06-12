@@ -33,6 +33,9 @@ jobs:
       env:
         COMPOSE_INTERACTIVE_NO_CLI: true
 
+    - name: Make run-theme-check executable
+      run: chmod +x ./bin/local-env/theme-check.sh
+
     - name: Theme Check Run
       run: ./bin/local-env/theme-check.sh
 
